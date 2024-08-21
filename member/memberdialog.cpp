@@ -1,13 +1,13 @@
-#include "member.h"
-#include "ui_member.h"
+#include "memberdialog.h"
+#include "ui_memberdialog.h"
 
-Person::Person(QWidget *parent, int pid) :
+MemberDialog::MemberDialog(QWidget *parent, int pid) :
     QDialog(parent),
-    ui(new Ui::Person),
+    ui(new Ui::MemberDialog),
     pid(pid)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Person editieren");
+    this->setWindowTitle("MemberDialog editieren");
 
     QObject::connect(ui->saveButton, SIGNAL(clicked()), SLOT(save()));
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
@@ -24,7 +24,7 @@ Person::Person(QWidget *parent, int pid) :
         ui->postleitzahlComboBox->addItem(queryplz.value(1).toString() + " - " + queryplz.value(2).toString(),
                                           queryplz.value(0));
     }
-    // Personen-Datensatz holen
+    // MemberDialogen-Datensatz holen
     if (pid != 0)
     {
         QSqlQuery queryone("select * from Personen where PId = " + QString::number(pid));
@@ -45,12 +45,12 @@ Person::Person(QWidget *parent, int pid) :
         ui->delButton->setDisabled(true);
 }
 
-Person::~Person()
+MemberDialog::~MemberDialog()
 {
     delete ui;
 }
 
-void Person::save()
+void MemberDialog::save()
 {
     QString name = ui->nameLineEdit->text();
     QString adr = ui->adresseLineEdit->text();
@@ -106,13 +106,13 @@ void Person::save()
     verlassen();
 }
 
-void Person::loeschen()
+void MemberDialog::loeschen()
 {
     // Löschen macht nur Sinn, bei einem vorhandenen Datensatz
     if (pid != 0) {
         QMessageBox msg;
         msg.setText("Willst du wirklich löschen?");
-        msg.setWindowTitle("Person löschen");
+        msg.setWindowTitle("MemberDialog löschen");
         // msg.addButton("Ok", QMessageBox::AcceptRole);
         // msg.addButton("Cancel", QMessageBox::NoRole);
         msg.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
@@ -128,7 +128,7 @@ void Person::loeschen()
     }
 }
 
-void Person::verlassen()
+void MemberDialog::verlassen()
 {
     this->close();
 }

@@ -1,21 +1,21 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef MEMBERWINDOW_H
+#define MEMBERWINDOW_H
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
-#include "member.h"
+#include "memberdialog.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class MainWindow; }
+namespace Ui { class MemberWindow; }
 QT_END_NAMESPACE
 
-class MainWindow : public QMainWindow
+class MemberWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    MemberWindow(QWidget *parent = nullptr);
+    ~MemberWindow();
 
 public slots:
     void neuerKontakt();
@@ -25,8 +25,8 @@ public slots:
     void verlassen();
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MemberWindow *ui;
     QSqlQueryModel *sql;
     void sqlquery(bool filter);
 };
-#endif // MAINWINDOW_H
+#endif // MEMBERWINDOW_H
