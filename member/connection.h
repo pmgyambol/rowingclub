@@ -33,6 +33,7 @@ static bool createConnection(string DB)
         msg.exec();
         return false;
     }
+/*
     // Erstellung der Datenbank
     QSqlQuery query;
     // Benutzung von Foreign-Keys einschalten
@@ -65,6 +66,7 @@ static bool createConnection(string DB)
     query.exec("insert into Personen (PName,PAdr,PTelnr,PPlzFK) values ('Mary','Weg 1','123', (select PlzId from Plz where PlzNummer=1200))");
     query.exec("insert into Personen (PName,PAdr,PTelnr,PPlzFK) values ('Peter','Strasse 1','456', (select PlzId from Plz where PlzNummer=1100))");
     query.exec("insert into Personen (PName,PAdr,PTelnr,PPlzFK) values ('Fritz','Weg 2','789', (select PlzId from Plz where PlzNummer=3100))");
+*/
     return true;
 }
 
