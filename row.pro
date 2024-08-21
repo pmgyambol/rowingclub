@@ -22,6 +22,12 @@ FORMS += \
     mainwindow.ui \
     person.ui
 
+OBJECTS_DIR = tmp
+MOC_DIR     = tmp
+UI_DIR      = tmp
+
+TARGET      = exe
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
