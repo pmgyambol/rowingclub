@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
-#include "person.h"
+#include "member.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }

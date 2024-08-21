@@ -1,5 +1,5 @@
-#include "person.h"
-#include "ui_person.h"
+#include "member.h"
+#include "ui_member.h"
 
 Person::Person(QWidget *parent, int pid) :
     QDialog(parent),

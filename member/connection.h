@@ -6,10 +6,14 @@
 #include <QDebug>
 #include <QDir>
 
+#include <string>
+
+using namespace std;
+
 // diese Methode öffnet die Datenbank
 // true => alles OK
 // false => Fehler beim Öffnen der DB
-static bool createConnection()
+static bool createConnection(string DB)
 {
     // Ausgabe der verfügbaren Datenbank-Treiber
     qDebug() << QSqlDatabase::drivers();
@@ -17,7 +21,7 @@ static bool createConnection()
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
     // Definition des Datenbanknamens
     // relativer Pfad, die db liegt an der gleichen Stelle, wo auch die EXE ist
-    db.setDatabaseName("Kontakte.db");
+    db.setDatabaseName(QString::fromStdString(DB));
     // Öffnen der Datenbank
     if (!db.open())
     {
