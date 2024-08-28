@@ -12,18 +12,30 @@ SOURCES += \
     main.cpp \
     mainwin/mainwindow.cpp \
     member/memberwindow.cpp \
-    member/memberdialog.cpp
+    member/memberdialog.cpp \
+    mitglied/mitgliedwindow.cpp \
+    mitglied/mitglieddialog.cpp \
+    boat/boatwindow.cpp \
+    boat/boatdialog.cpp
 
 HEADERS += \
-    connection.h \
+    db/connection.h \
     mainwin/mainwindow.h \
     member/memberwindow.h \
-    member/memberdialog.h
+    member/memberdialog.h \
+    mitglied/mitgliedwindow.h \
+    mitglied/mitglieddialog.h \
+    boat/boatwindow.h \
+    boat/boatdialog.h
 
 FORMS += \
     mainwin/mainwindow.ui \
     member/memberwindow.ui \
-    member/memberdialog.ui
+    member/memberdialog.ui \
+    mitglied/mitgliedwindow.ui \
+    mitglied/mitglieddialog.ui \
+    boat/boatwindow.ui \
+    boat/boatdialog.ui
 
 OBJECTS_DIR = tmp
 MOC_DIR     = tmp

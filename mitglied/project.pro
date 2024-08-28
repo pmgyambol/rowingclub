@@ -10,17 +10,17 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    memberwindow.cpp \
-    memberdialog.cpp
+    mitgliedwindow.cpp \
+    mitglieddialog.cpp
 
 HEADERS += \
     ../db/connection.h \
-    memberwindow.h \
-    memberdialog.h
+    mitgliedwindow.h \
+    mitglieddialog.h
 
 FORMS += \
-    memberwindow.ui \
-    memberdialog.ui
+    mitgliedwindow.ui \
+    mitglieddialog.ui
 
 OBJECTS_DIR = tmp
 MOC_DIR     = tmp

@@ -34,17 +34,32 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuUser">
+   <widget class="QMenu" name="menuMember">
     <property name="title">
-     <string>User</string>
+     <string>Member</string>
     </property>
-    <addaction name="actionNewUser"/>
-    <addaction name="actionListUser"/>
+    <addaction name="actionNewMember"/>
+    <addaction name="actionListMember"/>
    </widget>
-   <addaction name="menuUser"/>
+   <widget class="QMenu" name="menuBoat">
+    <property name="title">
+     <string>Boat</string>
+    </property>
+    <addaction name="actionAddBoat"/>
+   </widget>
+   <widget class="QMenu" name="menuMitglied">
+    <property name="title">
+     <string>Mitglied</string>
+    </property>
+    <addaction name="actionNewMitglied"/>
+    <addaction name="actionListMitglied"/>
+   </widget>
+   <addaction name="menuMember"/>
+   <addaction name="menuMitglied"/>
+   <addaction name="menuBoat"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNewUser">
+  <action name="actionNewMember">
    <property name="icon">
     <iconset theme="address-book-new"/>
    </property>
@@ -52,12 +67,33 @@
     <string>New</string>
    </property>
   </action>
-  <action name="actionListUser">
+  <action name="actionListMember">
    <property name="icon">
     <iconset theme="format-justify-fill"/>
    </property>
    <property name="text">
     <string>List</string>
+   </property>
+  </action>
+  <action name="actionNewMitglied">
+   <property name="icon">
+    <iconset theme="list-add"/>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionListMitglied">
+   <property name="icon">
+    <iconset theme="format-justify-fill"/>
+   </property>
+   <property name="text">
+    <string>List</string>
+   </property>
+  </action>
+  <action name="actionAddBoat">
+   <property name="text">
+    <string>Add</string>
    </property>
   </action>
  </widget>

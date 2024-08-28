@@ -1,7 +1,7 @@
 #include <QApplication>
 
 #include "mainwin/mainwindow.h"
-#include "connection.h"
+#include "db/connection.h"
 
 int main(int argc, char *argv[])
 {

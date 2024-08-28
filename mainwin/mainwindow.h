@@ -4,11 +4,14 @@
 #include <QMainWindow>
 #include <QtWidgets>
 
-// #include "sql/sqlitedb.h"
-//#include "newuser/newuserdialog.h"
-//#include "listuser/listuser.h"
 #include "member/memberwindow.h"
 #include "member/memberdialog.h"
+
+#include "mitglied/mitgliedwindow.h"
+#include "mitglied/mitglieddialog.h"
+
+#include "boat/boatwindow.h"
+#include "boat/boatdialog.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -28,22 +31,19 @@ public:
 
 
 public slots:
-    void newUser();
-    void listUsers();
+    void newMember();
+    void listMembers();
+    void newMitglied();
+    void listMitglied();
+    void addBoat();
     void updateActions();
 
 private:
     Ui::MainWindow *ui;
-//    SQLiteDB dbManager;
 
     void createMenus();
     void createActions();
 
     QMdiArea *mdiArea;
-
-    QMenu    *usersMenu;
-
-    QAction  *newUserAction;
-    QAction  *listUserAction;
 };
 #endif // MAINWINDOW_H

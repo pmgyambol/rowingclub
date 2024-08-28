@@ -1,9 +1,9 @@
-#include "memberwindow.h"
-#include "ui_memberwindow.h"
+#include "mitgliedwindow.h"
+#include "ui_mitgliedwindow.h"
 
-MemberWindow::MemberWindow(QWidget *parent)
+MitgliedWindow::MitgliedWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MemberWindow)
+    , ui(new Ui::MitgliedWindow)
 {
     ui->setupUi(this);
     this->setWindowTitle("Kontakte Verwaltung");
@@ -21,15 +21,15 @@ MemberWindow::MemberWindow(QWidget *parent)
     sqlquery(false);
 }
 
-MemberWindow::~MemberWindow()
+MitgliedWindow::~MitgliedWindow()
 {
     delete ui;
     delete sql;
 }
 
-void MemberWindow::neuerKontakt()
+void MitgliedWindow::neuerKontakt()
 {
-    MemberDialog perwindow;
+    MitgliedDialog perwindow;
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -38,19 +38,19 @@ void MemberWindow::neuerKontakt()
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der MemberDialogenliste
+    // Update der MitgliedDialogenliste
     sqlquery(false);
 }
 
-void MemberWindow::editKontakt(QModelIndex index)
+void MitgliedWindow::editKontakt(QModelIndex index)
 {
     // Zeile in der Tableview, auf die geklickt wurde
     int row = index.row();
     // wir holen mit der Zeile die versteckte PId heraus
     int pid = ui->dbView->model()->index(row, 0).data().toInt();
 
-    // MemberDialogen - Window starten
-    MemberDialog perwindow(this, pid);
+    // MitgliedDialogen - Window starten
+    MitgliedDialog perwindow(this, pid);
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -59,26 +59,26 @@ void MemberWindow::editKontakt(QModelIndex index)
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der MemberDialogenliste
+    // Update der MitgliedDialogenliste
     sqlquery(false);
 }
 
-void MemberWindow::plzVerwaltung()
+void MitgliedWindow::plzVerwaltung()
 {
 
 }
 
-void MemberWindow::suchen()
+void MitgliedWindow::suchen()
 {
     sqlquery(true);
 }
 
-void MemberWindow::verlassen()
+void MitgliedWindow::verlassen()
 {
     this->close();
 }
 
-void MemberWindow::sqlquery(bool filter)
+void MitgliedWindow::sqlquery(bool filter)
 {
     QString query = "select PId,PName,PAdr,PTelnr,PlzNummer,PlzOrt from Personen \
                      join Plz on PPlzFK=PlzId";

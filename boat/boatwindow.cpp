@@ -1,9 +1,9 @@
-#include "memberwindow.h"
-#include "ui_memberwindow.h"
+#include "boatwindow.h"
+#include "ui_boatwindow.h"
 
-MemberWindow::MemberWindow(QWidget *parent)
+BoatWindow::BoatWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MemberWindow)
+    , ui(new Ui::BoatWindow)
 {
     ui->setupUi(this);
     this->setWindowTitle("Kontakte Verwaltung");
@@ -21,15 +21,15 @@ MemberWindow::MemberWindow(QWidget *parent)
     sqlquery(false);
 }
 
-MemberWindow::~MemberWindow()
+BoatWindow::~BoatWindow()
 {
     delete ui;
     delete sql;
 }
 
-void MemberWindow::neuerKontakt()
+void BoatWindow::neuerKontakt()
 {
-    MemberDialog perwindow;
+    BoatDialog perwindow;
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -38,19 +38,19 @@ void MemberWindow::neuerKontakt()
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der MemberDialogenliste
+    // Update der BoatDialogenliste
     sqlquery(false);
 }
 
-void MemberWindow::editKontakt(QModelIndex index)
+void BoatWindow::editKontakt(QModelIndex index)
 {
     // Zeile in der Tableview, auf die geklickt wurde
     int row = index.row();
     // wir holen mit der Zeile die versteckte PId heraus
     int pid = ui->dbView->model()->index(row, 0).data().toInt();
 
-    // MemberDialogen - Window starten
-    MemberDialog perwindow(this, pid);
+    // BoatDialogen - Window starten
+    BoatDialog perwindow(this, pid);
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -59,26 +59,26 @@ void MemberWindow::editKontakt(QModelIndex index)
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der MemberDialogenliste
+    // Update der BoatDialogenliste
     sqlquery(false);
 }
 
-void MemberWindow::plzVerwaltung()
+void BoatWindow::plzVerwaltung()
 {
 
 }
 
-void MemberWindow::suchen()
+void BoatWindow::suchen()
 {
     sqlquery(true);
 }
 
-void MemberWindow::verlassen()
+void BoatWindow::verlassen()
 {
     this->close();
 }
 
-void MemberWindow::sqlquery(bool filter)
+void BoatWindow::sqlquery(bool filter)
 {
     QString query = "select PId,PName,PAdr,PTelnr,PlzNummer,PlzOrt from Personen \
                      join Plz on PPlzFK=PlzId";
