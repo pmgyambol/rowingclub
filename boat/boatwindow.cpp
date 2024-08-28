@@ -80,8 +80,7 @@ void BoatWindow::verlassen()
 
 void BoatWindow::sqlquery(bool filter)
 {
-    QString query = "select PId,PName,PAdr,PTelnr,PlzNummer,PlzOrt from Personen \
-                     join Plz on PPlzFK=PlzId";
+    QString query = "select id,price,herstelldatum,typ,material,besitz from boats";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -89,16 +88,15 @@ void BoatWindow::sqlquery(bool filter)
             query += " where PName like '" + name + "%'";
     }
     sql->setQuery(query);
-    sql->setHeaderData(0, Qt::Horizontal, "Id");
-    sql->setHeaderData(1, Qt::Horizontal, "Name");
-    sql->setHeaderData(2, Qt::Horizontal, "Adresse");
-    sql->setHeaderData(3, Qt::Horizontal, "Telnr");
-    sql->setHeaderData(4, Qt::Horizontal, "Plz");
-    sql->setHeaderData(5, Qt::Horizontal, "Ort");
+    sql->setHeaderData(0, Qt::Horizontal, "id");
+    sql->setHeaderData(1, Qt::Horizontal, "price");
+    sql->setHeaderData(2, Qt::Horizontal, "herstelldatum");
+    sql->setHeaderData(3, Qt::Horizontal, "typ");
+    sql->setHeaderData(4, Qt::Horizontal, "material");
+    sql->setHeaderData(5, Qt::Horizontal, "besitz");
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);
     // Id unterdrücken
     ui->dbView->hideColumn(0);
 }
-

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>321</width>
-    <height>194</height>
+    <height>202</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,44 +17,54 @@
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="nameLabel">
+      <widget class="QLabel" name="priceLabel">
        <property name="text">
-        <string>Name:</string>
+        <string>Price</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="nameLineEdit"/>
-     </item>
-     <item row="1" column="0">
-      <widget class="QLabel" name="adresseLabel">
-       <property name="text">
-        <string>Adresse</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="adresseLineEdit"/>
+      <widget class="QLineEdit" name="priceComboBox"/>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="telefonnummerLabel">
+      <widget class="QLabel" name="typLabel">
        <property name="text">
-        <string>Telefonnummer:</string>
+        <string>Typ</string>
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="telefonnummerLineEdit"/>
-     </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="postleitzahlLabel">
+      <widget class="QLabel" name="materialLabel">
        <property name="text">
-        <string>Postleitzahl</string>
+        <string>Material</string>
        </property>
       </widget>
      </item>
      <item row="3" column="1">
-      <widget class="QComboBox" name="postleitzahlComboBox"/>
+      <widget class="QComboBox" name="materialComboBox"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QComboBox" name="typComboBox"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QComboBox" name="besitzComboBox"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="besitzLabel">
+       <property name="text">
+        <string>Besitz</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QDateEdit" name="herstelldatumDateEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="herstelldatumLabel">
+       <property name="text">
+        <string>Herstelldatum</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

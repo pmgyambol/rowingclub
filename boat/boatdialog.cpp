@@ -14,31 +14,40 @@ BoatDialog::BoatDialog(QWidget *parent, int pid) :
     QObject::connect(ui->delButton, SIGNAL(clicked()), SLOT(loeschen()));
 
     // Füllen der Combobox mit Daten aus der Tabelle Plz
-    QSqlQuery queryplz("select * from Plz");
-    while(queryplz.next())
-    {
-        // Eintragen in Combobox
-        // addItem hat zwei Paramter
-        // 1) sichbare Text
-        // 2) hier kann ein Key mitgegeben werden
-        ui->postleitzahlComboBox->addItem(queryplz.value(1).toString() + " - " + queryplz.value(2).toString(),
-                                          queryplz.value(0));
-    }
+    QSqlQuery queryplz("select * from boats");
+
+    ui->typComboBox->addItem("canu");
+    ui->typComboBox->addItem("cayak");
+    ui->typComboBox->addItem("para-canu");
+    ui->typComboBox->addItem("para-cayak");
+
+    ui->materialComboBox->addItem("wood");
+    ui->materialComboBox->addItem("fabric");
+    ui->materialComboBox->addItem("carbon");
+
+    ui->besitzComboBox->addItem("private");
+    ui->besitzComboBox->addItem("sponsored");
+    ui->besitzComboBox->addItem("club");
+
     // BoatDialogen-Datensatz holen
     if (pid != 0)
     {
-        QSqlQuery queryone("select * from Personen where PId = " + QString::number(pid));
+        QSqlQuery queryone("select * from boats where id = " + QString::number(pid));
         if (queryone.next())
         {
+/*
             // Daten in die Oberfläche schreiben
-            ui->nameLineEdit->setText(queryone.value(1).toString());
-            ui->adresseLineEdit->setText(queryone.value(2).toString());
-            ui->telefonnummerLineEdit->setText(queryone.value(3).toString());
+            int fk = queryone.value(1).toInt();
+            int entry = ui->priceComboBox->findData(fk);
+            ui->priceComboBox->setText(queryone.value(1).toString());
+            ui->herstelldatumLineEdit->setText(queryone.value(2).toString());
             // Combobox setzen
+            ui->typComboBox->setText(queryone.value(3).toString());
             int fk = queryone.value(4).toInt();
             // findData sucht die versteckten Keys durch
-            int entry = ui->postleitzahlComboBox->findData(fk);
-            ui->postleitzahlComboBox->setCurrentIndex(entry);
+            int entry = ui->materialComboBox->findData(fk);
+            ui->materialComboBox->setCurrentIndex(entry);
+*/
         }
     }
     else
@@ -52,14 +61,15 @@ BoatDialog::~BoatDialog()
 
 void BoatDialog::save()
 {
-    QString name = ui->nameLineEdit->text();
+/*
+    QString name = ui->priceComboBox->text();
     QString adr = ui->adresseLineEdit->text();
     QString telnr = ui->telefonnummerLineEdit->text();
     if (name.isEmpty() || adr.isEmpty() || telnr.isEmpty())
         return;
     // Combobox abfragen
-    int currentindex = ui->postleitzahlComboBox->currentIndex();
-    QVariant variant = ui->postleitzahlComboBox->itemData(currentindex);
+    int currentindex = ui->materialComboBox->currentIndex();
+    QVariant variant = ui->materialComboBox->itemData(currentindex);
     int plzid = variant.toInt();
 
     if (pid == 0)
@@ -102,6 +112,7 @@ void BoatDialog::save()
         }
         qDebug() << update.lastQuery();
     }
+*/
     // Window schließen
     verlassen();
 }
