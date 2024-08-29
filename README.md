@@ -3,7 +3,7 @@
 ## Set the database in directory db:
 
 ```diff
-@@ sqlite3 viena.db < init.sql
+@@sqlite3 viena.db < init.sql@@
 ```
 
 ## Set environment variable for the absolute path of the database file:
@@ -19,11 +19,11 @@
 ## Compile
 
 ```diff
-@@ qmake && make
+@@qmake && make@@
 ```
 
 ## Run
 
 ```diff
-@@ ./viena
+@@./viena@@
 ```
