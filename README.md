@@ -2,8 +2,8 @@
 
 ## Set the database in directory db:
 
-```diff
-! sqlite3 viena.db < init.sql
+```css
+sqlite3 viena.db < init.sql
 ```
 
 ## Set environment variable for the absolute path of the database file:
@@ -18,8 +18,8 @@
 
 ## Compile
 
-```diff
-! qmake && make
+```css
+qmake && make
 ```
 
 ## Run
