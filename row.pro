@@ -37,6 +37,16 @@ FORMS += \
     boat/boatwindow.ui \
     boat/boatdialog.ui
 
+#SOURCES = $$files(*.cpp, true)
+#HEADERS = $$files(*.h, true)
+#FORMS   = $$files(*.ui, true)
+
+
+
+# TEMPLATE = subdirs
+
+# SUBDIRS = member mitglied boat
+
 OBJECTS_DIR = tmp
 MOC_DIR     = tmp
 UI_DIR      = tmp
