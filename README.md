@@ -2,23 +2,28 @@
 
 ## Set the database in directory db:
 
-sqlite3 viena.db < init.sql
+```diff
+@@ sqlite3 viena.db < init.sql
+```
 
 ## Set environment variable for the absolute path of the database file:
 
 ```diff
-+ Linux based systems
++ Linux based systems terminal:
 - export MYDB=<absolute_path>
 
-+ Qt Creator
-Edit > Preferences > Environment > System (tab) and change the Environment by adding MYDB=<absolute_path> line
++ Qt Creator:
+- Edit > Preferences > Environment > System (tab) and change the Environment by adding MYDB=<absolute_path> line
 ```
 
 ## Compile
 
-qmake && make
+```diff
+@@ qmake && make
+```
 
 ## Run
 
-./viena
-
+```diff
+@@ ./viena
+```
