@@ -24,8 +24,6 @@
 
 ## Run
 
-```diff
-! ./viena
+```css
+./viena
 ```
-
-- ![#1589F0]Test `#1589F0`
