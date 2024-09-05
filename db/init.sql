@@ -65,11 +65,6 @@ CREATE TABLE if not exists mitglied (
   FOREIGN KEY('membershipid') REFERENCES 'membership'('id')
 );
 
-CREATE TABLE if not exists 'membershiptypes' (
-  'memberid'	INTEGER NOT NULL,
-  'mtype'	TEXT NOT NULL UNIQUE,
-  PRIMARY KEY('memberid' AUTOINCREMENT));
-
 /* объркващо е, лодките трябва да имам някакво ID с което да се различават една от друга */
 CREATE TABLE 'boats' (
   id             INTEGER,
@@ -89,5 +84,33 @@ insert into boats (price,herstelldatum,typ,material,besitz) values (11000,"2004-
 insert into boats (price,herstelldatum,typ,material,besitz) values (11500,"2005-07-20",'para-cayak','fabric','private');
 insert into boats (price,herstelldatum,typ,material,besitz) values (14000,"2012-10-10",'canu',      'fabric','private');
 
-insert into membershiptypes (mtype) values ('guest'), ('athlete'), ('trainer'), ('manager'), ('amateur');
+/* ------------------------- Enumerated Types  ------------------------- */
+
+CREATE TABLE if not exists membershiptype (
+  id    INTEGER NOT NULL,
+  type  TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(id AUTOINCREMENT));
+
+insert into membershiptype (type) values ('guest'), ('athlete'), ('trainer'), ('manager'), ('amateur');
+
+CREATE TABLE if not exists materialtype (
+  id   INTEGER NOT NULL,
+  type TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(id AUTOINCREMENT));
+
+insert into materialtype (type) values ('wood'), ('carbon'), ('fabric');
+
+CREATE TABLE if not exists boattype (
+  id   INTEGER NOT NULL,
+  type TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(id AUTOINCREMENT));
+
+insert into boattype (type) values ('canu'), ('cayak'), ('para-canu'), ('para-cayak');
+
+CREATE TABLE if not exists besitztype (
+  id   INTEGER NOT NULL,
+  type TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(id AUTOINCREMENT));
+
+insert into besitztype (type) values ('private'), ('sponsored'), ('club');
 

@@ -1,6 +1,11 @@
 #include "boatdialog.h"
 #include "ui_boatdialog.h"
 
+#include <string>
+#include <iostream>
+
+using namespace std;
+
 BoatDialog::BoatDialog(QWidget *parent, int pid) :
     QDialog(parent),
     ui(new Ui::BoatDialog),
@@ -11,23 +16,25 @@ BoatDialog::BoatDialog(QWidget *parent, int pid) :
 
     QObject::connect(ui->saveButton, SIGNAL(clicked()), SLOT(save()));
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
-    QObject::connect(ui->delButton, SIGNAL(clicked()), SLOT(loeschen()));
+    QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
 
-    // Füllen der Combobox mit Daten aus der Tabelle Plz
-    QSqlQuery queryplz("select * from boats");
+    QSqlQuery queryboattype("select * from boattype");
+    while(queryboattype.next())
+    {
+        ui->typComboBox->addItem(queryboattype.value(1).toString());
+    }
 
-    ui->typComboBox->addItem("canu");
-    ui->typComboBox->addItem("cayak");
-    ui->typComboBox->addItem("para-canu");
-    ui->typComboBox->addItem("para-cayak");
+    QSqlQuery querymaterialtype("select * from materialtype");
+    while(querymaterialtype.next())
+    {
+        ui->materialComboBox->addItem(querymaterialtype.value(1).toString());
+    }
 
-    ui->materialComboBox->addItem("wood");
-    ui->materialComboBox->addItem("fabric");
-    ui->materialComboBox->addItem("carbon");
-
-    ui->besitzComboBox->addItem("private");
-    ui->besitzComboBox->addItem("sponsored");
-    ui->besitzComboBox->addItem("club");
+    QSqlQuery querybesitz("select * from besitztype");
+    while(querybesitz.next())
+    {
+        ui->besitzComboBox->addItem(querybesitz.value(1).toString());
+    }
 
     // BoatDialogen-Datensatz holen
     if (pid != 0)
@@ -35,19 +42,11 @@ BoatDialog::BoatDialog(QWidget *parent, int pid) :
         QSqlQuery queryone("select * from boats where id = " + QString::number(pid));
         if (queryone.next())
         {
-/*
-            // Daten in die Oberfläche schreiben
-            int fk = queryone.value(1).toInt();
-            int entry = ui->priceComboBox->findData(fk);
             ui->priceComboBox->setText(queryone.value(1).toString());
-            ui->herstelldatumLineEdit->setText(queryone.value(2).toString());
-            // Combobox setzen
-            ui->typComboBox->setText(queryone.value(3).toString());
-            int fk = queryone.value(4).toInt();
-            // findData sucht die versteckten Keys durch
-            int entry = ui->materialComboBox->findData(fk);
-            ui->materialComboBox->setCurrentIndex(entry);
-*/
+            ui->herstelldatumDateEdit->setDate(queryone.value(2).toDate());
+            ui->typComboBox->setCurrentIndex(ui->typComboBox->findText(queryone.value(3).toString(),Qt::MatchContains));
+            ui->materialComboBox->setCurrentIndex(ui->materialComboBox->findText(queryone.value(4).toString(),Qt::MatchContains));
+            ui->besitzComboBox->setCurrentIndex(ui->besitzComboBox->findText(queryone.value(5).toString(),Qt::MatchContains));
         }
     }
     else
@@ -61,9 +60,13 @@ BoatDialog::~BoatDialog()
 
 void BoatDialog::save()
 {
+    QString price = ui->priceComboBox->text();
+    QString date  = ui->herstelldatumDateEdit->text();
+    int typeInd   = ui->typComboBox->currentIndex();
+    string s = ui->typComboBox->itemData(typeInd).toString().toStdString() ;
+    // qDebug() << s;
+    cout << "Test: " << s;
 /*
-    QString name = ui->priceComboBox->text();
-    QString adr = ui->adresseLineEdit->text();
     QString telnr = ui->telefonnummerLineEdit->text();
     if (name.isEmpty() || adr.isEmpty() || telnr.isEmpty())
         return;

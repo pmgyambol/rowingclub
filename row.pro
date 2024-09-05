@@ -51,7 +51,7 @@ OBJECTS_DIR = tmp
 MOC_DIR     = tmp
 UI_DIR      = tmp
 
-TARGET      = exe
+TARGET      = viena
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
