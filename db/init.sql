@@ -76,13 +76,21 @@ CREATE TABLE 'boats' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-insert into boats (price,herstelldatum,typ,material,besitz) values (10000,"2020-11-24",'canu',      'fabric','sponsored');
-insert into boats (price,herstelldatum,typ,material,besitz) values ( 8000,"2023-01-23",'para-canu', 'fabric','club');
-insert into boats (price,herstelldatum,typ,material,besitz) values (14500,"2022-05-06",'cayak',     'fabric','club');
-insert into boats (price,herstelldatum,typ,material,besitz) values ( 9900,"2015-12-09",'cayak',     'carbon','private');
-insert into boats (price,herstelldatum,typ,material,besitz) values (11000,"2004-03-04",'canu',      'wood',  'club');
-insert into boats (price,herstelldatum,typ,material,besitz) values (11500,"2005-07-20",'para-cayak','fabric','private');
-insert into boats (price,herstelldatum,typ,material,besitz) values (14000,"2012-10-10",'canu',      'fabric','private');
+insert into boats (price,herstelldatum,typ,material,besitz) values (10000,'2020-11-24','canu',      'fabric','sponsored');
+insert into boats (price,herstelldatum,typ,material,besitz) values ( 8000,'2023-01-23','para-canu', 'fabric','club');
+insert into boats (price,herstelldatum,typ,material,besitz) values (14500,'2022-05-06','cayak',     'fabric','club');
+insert into boats (price,herstelldatum,typ,material,besitz) values ( 9900,'2015-12-09','cayak',     'carbon','private');
+insert into boats (price,herstelldatum,typ,material,besitz) values (11000,'2004-03-04','canu',      'wood',  'club');
+insert into boats (price,herstelldatum,typ,material,besitz) values (11500,'2005-07-20','para-cayak','fabric','private');
+insert into boats (price,herstelldatum,typ,material,besitz) values (14000,'2012-10-10','canu',      'fabric','private');
+
+insert into boats (price,herstelldatum,typ,material,besitz) values (20000,'20-11-2012','canu',      'fabric','sponsored');
+insert into boats (price,herstelldatum,typ,material,besitz) values ( 9000,'01-06-2012','para-canu', 'fabric','club');
+insert into boats (price,herstelldatum,typ,material,besitz) values (15500,'12-12-2018','cayak',     'fabric','club');
+insert into boats (price,herstelldatum,typ,material,besitz) values ( 8900,'03-03-2016','cayak',     'carbon','private');
+insert into boats (price,herstelldatum,typ,material,besitz) values (12000,'05-05-2005','canu',      'wood',  'club');
+insert into boats (price,herstelldatum,typ,material,besitz) values (16500,'04-04-2011','para-cayak','fabric','private');
+insert into boats (price,herstelldatum,typ,material,besitz) values (18000,'02-02-2013','canu',      'fabric','private');
 
 /* ------------------------- Enumerated Types  ------------------------- */
 
