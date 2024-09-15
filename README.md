@@ -1,4 +1,4 @@
-# Project: rowingclub
+# Project: rowingclub (old: viena)
 
 ## Set the database in directory db:
 
