@@ -34,18 +34,12 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuMember">
-    <property name="title">
-     <string>Member</string>
-    </property>
-    <addaction name="actionNewMember"/>
-    <addaction name="actionListMember"/>
-   </widget>
    <widget class="QMenu" name="menuBoat">
     <property name="title">
      <string>Boat</string>
     </property>
     <addaction name="actionAddBoat"/>
+    <addaction name="actionListBoat"/>
    </widget>
    <widget class="QMenu" name="menuMitglied">
     <property name="title">
@@ -54,27 +48,10 @@
     <addaction name="actionNewMitglied"/>
     <addaction name="actionListMitglied"/>
    </widget>
-   <addaction name="menuMember"/>
    <addaction name="menuMitglied"/>
    <addaction name="menuBoat"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNewMember">
-   <property name="icon">
-    <iconset theme="address-book-new"/>
-   </property>
-   <property name="text">
-    <string>New</string>
-   </property>
-  </action>
-  <action name="actionListMember">
-   <property name="icon">
-    <iconset theme="format-justify-fill"/>
-   </property>
-   <property name="text">
-    <string>List</string>
-   </property>
-  </action>
   <action name="actionNewMitglied">
    <property name="icon">
     <iconset theme="list-add"/>
@@ -92,8 +69,19 @@
    </property>
   </action>
   <action name="actionAddBoat">
+   <property name="icon">
+    <iconset theme="list-add"/>
+   </property>
    <property name="text">
     <string>Add</string>
+   </property>
+  </action>
+  <action name="actionListBoat">
+   <property name="icon">
+    <iconset theme="format-justify-fill"/>
+   </property>
+   <property name="text">
+    <string>List</string>
    </property>
   </action>
  </widget>

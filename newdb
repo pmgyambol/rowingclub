@@ -1,0 +1,1 @@
+cd db; rm -rf viena.db; sqlite3 viena.db < init.sql

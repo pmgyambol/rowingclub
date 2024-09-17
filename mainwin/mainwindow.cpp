@@ -1,9 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include "member/memberdialog.h"
-#include "boat/boatdialog.h"
-
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -37,32 +34,12 @@ void MainWindow::updateActions()
 
 void MainWindow::createActions()
 {
-    connect(ui->actionNewMember,    SIGNAL(triggered()), this, SLOT(newMember()));
-    connect(ui->actionListMember,   SIGNAL(triggered()), this, SLOT(listMembers()));
     connect(ui->actionNewMitglied,  SIGNAL(triggered()), this, SLOT(newMitglied()));
     connect(ui->actionListMitglied, SIGNAL(triggered()), this, SLOT(listMitglied()));
     connect(ui->actionAddBoat,      SIGNAL(triggered()), this, SLOT(addBoat()));
+    connect(ui->actionListBoat,     SIGNAL(triggered()), this, SLOT(listBoat()));
 }
 
-
-void MainWindow::listMembers()
-{
-    MemberWindow *memberWindow = new MemberWindow();
-    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(memberWindow);
-    subWindow->show();
-}
-
-
-void MainWindow::newMember()
-{
-    MemberDialog perwindow;
-    // Modales Window:
-    // Es ist das oberste Window
-    // alle anderen Windows sind nicht bedienbar
-    perwindow.setModal(true);
-    perwindow.show();
-    perwindow.exec();
-}
 
 void MainWindow::listMitglied()
 {
@@ -94,4 +71,12 @@ void MainWindow::addBoat()
     perwindow.setModal(true);
     perwindow.show();
     perwindow.exec();
+}
+
+
+void MainWindow::listBoat()
+{
+    BoatWindow *boatWindow = new BoatWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(boatWindow);
+    subWindow->show();
 }

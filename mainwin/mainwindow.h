@@ -4,9 +4,6 @@
 #include <QMainWindow>
 #include <QtWidgets>
 
-#include "member/memberwindow.h"
-#include "member/memberdialog.h"
-
 #include "mitglied/mitgliedwindow.h"
 #include "mitglied/mitglieddialog.h"
 
@@ -31,11 +28,10 @@ public:
 
 
 public slots:
-    void newMember();
-    void listMembers();
     void newMitglied();
     void listMitglied();
     void addBoat();
+    void listBoat();
     void updateActions();
 
 private:
