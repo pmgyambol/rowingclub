@@ -2,12 +2,12 @@ viena
 exe
 build
 .qmake.stash
+*.swp
 moc_*
 ui_*
 *.db
 Makefile
-listuser*
-mainwindow-org*
+*.user
 tmp
 
 # Prerequisites

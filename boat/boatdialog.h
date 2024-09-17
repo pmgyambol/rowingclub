@@ -6,6 +6,9 @@
 #include <QSqlQuery>
 #include <QMessageBox>
 
+#include <string>
+#include <vector>
+
 namespace Ui {
 class BoatDialog;
 }
@@ -27,6 +30,10 @@ private:
     Ui::BoatDialog *ui;
     // Primary Key für die Boaten Tabelle
     int pid;
+    // enumerated types
+    std::vector<std::string>      typ_types;
+    std::vector<std::string> material_types;
+    std::vector<std::string>   besitz_types;
 };
 
 #endif // BOATDIALOG_H

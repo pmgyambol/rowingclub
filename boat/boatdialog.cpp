@@ -1,7 +1,6 @@
 #include "boatdialog.h"
 #include "ui_boatdialog.h"
 
-#include <string>
 #include <iostream>
 
 using namespace std;
@@ -22,18 +21,21 @@ BoatDialog::BoatDialog(QWidget *parent, int pid) :
     while(queryboattype.next())
     {
         ui->typComboBox->addItem(queryboattype.value(1).toString());
+        typ_types.push_back(queryboattype.value(1).toString().toStdString());
     }
 
     QSqlQuery querymaterialtype("select * from materialtype");
     while(querymaterialtype.next())
     {
         ui->materialComboBox->addItem(querymaterialtype.value(1).toString());
+        material_types.push_back(querymaterialtype.value(1).toString().toStdString());
     }
 
-    QSqlQuery querybesitz("select * from besitztype");
-    while(querybesitz.next())
+    QSqlQuery querybesitztype("select * from besitztype");
+    while(querybesitztype.next())
     {
-        ui->besitzComboBox->addItem(querybesitz.value(1).toString());
+        ui->besitzComboBox->addItem(querybesitztype.value(1).toString());
+        besitz_types.push_back(querybesitztype.value(1).toString().toStdString());
     }
 
     // BoatDialogen-Datensatz holen
@@ -60,30 +62,25 @@ BoatDialog::~BoatDialog()
 
 void BoatDialog::save()
 {
-    QString price = ui->priceComboBox->text();
-    QString date  = ui->herstelldatumDateEdit->text();
-    int typeInd   = ui->typComboBox->currentIndex();
-    string s = ui->typComboBox->itemData(typeInd).toString().toStdString() ;
-    // qDebug() << s;
-    cout << "Test: " << s;
-/*
-    QString telnr = ui->telefonnummerLineEdit->text();
-    if (name.isEmpty() || adr.isEmpty() || telnr.isEmpty())
-        return;
+    int price = ui->priceComboBox->text().toInt();
+    if( price <= 0 ) return;
+    string date  = ui->herstelldatumDateEdit->date().toString("yyyy-MM-dd").toStdString();
+
     // Combobox abfragen
-    int currentindex = ui->materialComboBox->currentIndex();
-    QVariant variant = ui->materialComboBox->itemData(currentindex);
-    int plzid = variant.toInt();
+    int type_id_typ      = ui->typComboBox->currentIndex();
+    int type_id_material = ui->materialComboBox->currentIndex();
+    int type_id_besitz   = ui->besitzComboBox->currentIndex();
 
     if (pid == 0)
     {
-        // Speichern in die Datenbank
+        // INSERT
         QSqlQuery insert;
-        insert.prepare("insert into Personen (PName,PAdr,PTelnr,PPlzFK) values (:name,:adr,:telnr,:fk)");
-        insert.bindValue(":name", name);
-        insert.bindValue(":adr", adr);
-        insert.bindValue(":telnr", telnr);
-        insert.bindValue(":fk", plzid);
+        insert.prepare("insert into boats (price,herstelldatum,typ,material,besitz) values (:price,:date,:typ,:material,:besitz)");
+        insert.bindValue(":price", price);
+        insert.bindValue(":date", date.c_str());
+        insert.bindValue(     ":typ",      typ_types[type_id_typ     ].c_str());
+        insert.bindValue(":material", material_types[type_id_material].c_str());
+        insert.bindValue(  ":besitz",   besitz_types[type_id_besitz  ].c_str());
         if (!insert.exec())
         {
             QMessageBox msg;
@@ -94,17 +91,17 @@ void BoatDialog::save()
         }
     }
     else {
-        // UPDATE table_name
-        // SET column1 = value1, column2 = value2, ...
-        // WHERE condition;
+        // UPDATE
         QSqlQuery update;
-        update.prepare("update Personen set \
-                        PName=:name, PAdr=:adr, PTelnr=:telnr, PPlzFK=:fk \
-                        where PId = " + QString::number(pid));
-        update.bindValue(":name", name);
-        update.bindValue(":adr", adr);
-        update.bindValue(":telnr", telnr);
-        update.bindValue(":fk", plzid);
+        update.prepare("update boats set \
+                        price=:price, herstelldatum=:date, typ=:typ, material=:material, besitz=:besitz \
+                        where id = " + QString::number(pid));
+        update.bindValue(":price", price);
+        update.bindValue(":date", date.c_str());
+        update.bindValue(     ":typ",      typ_types[type_id_typ     ].c_str());
+        update.bindValue(":material", material_types[type_id_material].c_str());
+        update.bindValue(  ":besitz",   besitz_types[type_id_besitz  ].c_str());
+        //qDebug() << typ_types[type_id_typ     ].c_str() << " " << material_types[type_id_material].c_str() << " " << besitz_types[type_id_besitz  ].c_str() << "\n";
         if (!update.exec())
         {
             QMessageBox msg;
@@ -115,7 +112,6 @@ void BoatDialog::save()
         }
         qDebug() << update.lastQuery();
     }
-*/
     // Window schließen
     verlassen();
 }
@@ -127,8 +123,6 @@ void BoatDialog::loeschen()
         QMessageBox msg;
         msg.setText("Willst du wirklich löschen?");
         msg.setWindowTitle("BoatDialog löschen");
-        // msg.addButton("Ok", QMessageBox::AcceptRole);
-        // msg.addButton("Cancel", QMessageBox::NoRole);
         msg.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
         msg.setDefaultButton(QMessageBox::Yes);
         QAbstractButton *but = msg.button(QMessageBox::Yes);
@@ -136,7 +130,7 @@ void BoatDialog::loeschen()
         if (msg.exec() == QMessageBox::Yes)
         {
             // Datensatz löschen
-            QSqlQuery delPerson("delete from Personen where PId = " + QString::number(pid));
+            QSqlQuery delPerson("delete from boats where id = " + QString::number(pid));
             verlassen();
         }
     }

@@ -1,8 +1,6 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS mitglied;
 DROP TABLE IF EXISTS boats;
-DROP TABLE IF EXISTS Plz;
-DROP TABLE IF EXISTS Personen;
 
 CREATE TABLE users (
   username TEXT PRIMARY KEY NOT NULL,
@@ -14,31 +12,6 @@ VALUES
 ('darin', 'Darin Darinov', 'baim@d.bg'),
 ('gogoe', 'Ivan Petkanov', 'momo@g.bg'),
 ('boiko', 'Boiko Morozov', 'hubo@b.bg');
-
-CREATE TABLE if not exists 'Plz' (
-  'PlzId'	INTEGER NOT NULL,
-  'PlzNummer'	INTEGER NOT NULL UNIQUE,
-  'PlzOrt'	TEXT NOT NULL,
-  PRIMARY KEY('PlzId' AUTOINCREMENT));
-
-/* добра идея ми изглежда по-голямата част от нашата таблица member да е тази от Personen */
-CREATE TABLE if not exists 'Personen' (
-  'PId'		INTEGER NOT NULL,
-  'PName'	TEXT NOT NULL,
-  'PAdr'	TEXT NOT NULL,
-  'PTelnr'	TEXT NOT NULL,
-  'PPlzFK'	INTEGER NOT NULL,
-  PRIMARY KEY('PId' AUTOINCREMENT),
-  FOREIGN KEY('PPlzFK') REFERENCES 'Plz'('PlzId'));
-
-delete from Personen;
-delete from Plz;
-insert into Plz (PlzNummer,PlzOrt) values (1100,'Wien');
-insert into Plz (PlzNummer,PlzOrt) values (1200,'Wien');
-insert into Plz (PlzNummer,PlzOrt) values (3100,'St.Pölten');
-insert into Personen (PName,PAdr,PTelnr,PPlzFK) values ('Mary','Weg 1','123', (select PlzId from Plz where PlzNummer=1200));
-insert into Personen (PName,PAdr,PTelnr,PPlzFK) values ('Peter','Strasse 1','456', (select PlzId from Plz where PlzNummer=1100));
-insert into Personen (PName,PAdr,PTelnr,PPlzFK) values ('Fritz','Weg 2','789', (select PlzId from Plz where PlzNummer=3100));
 
 CREATE TABLE 'membership' (
   'id'     INTEGER,
@@ -83,14 +56,6 @@ insert into boats (price,herstelldatum,typ,material,besitz) values ( 9900,'2015-
 insert into boats (price,herstelldatum,typ,material,besitz) values (11000,'2004-03-04','canu',      'wood',  'club');
 insert into boats (price,herstelldatum,typ,material,besitz) values (11500,'2005-07-20','para-cayak','fabric','private');
 insert into boats (price,herstelldatum,typ,material,besitz) values (14000,'2012-10-10','canu',      'fabric','private');
-
-insert into boats (price,herstelldatum,typ,material,besitz) values (20000,'20-11-2012','canu',      'fabric','sponsored');
-insert into boats (price,herstelldatum,typ,material,besitz) values ( 9000,'01-06-2012','para-canu', 'fabric','club');
-insert into boats (price,herstelldatum,typ,material,besitz) values (15500,'12-12-2018','cayak',     'fabric','club');
-insert into boats (price,herstelldatum,typ,material,besitz) values ( 8900,'03-03-2016','cayak',     'carbon','private');
-insert into boats (price,herstelldatum,typ,material,besitz) values (12000,'05-05-2005','canu',      'wood',  'club');
-insert into boats (price,herstelldatum,typ,material,besitz) values (16500,'04-04-2011','para-cayak','fabric','private');
-insert into boats (price,herstelldatum,typ,material,besitz) values (18000,'02-02-2013','canu',      'fabric','private');
 
 /* ------------------------- Enumerated Types  ------------------------- */
 
