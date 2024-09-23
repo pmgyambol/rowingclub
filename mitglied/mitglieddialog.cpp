@@ -1,6 +1,10 @@
 #include "mitglieddialog.h"
 #include "ui_mitglieddialog.h"
 
+#include "dialog1.h"
+#include "dialog2.h"
+#include <QPushButton>
+
 using namespace std;
 
 MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
@@ -14,6 +18,13 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
     QObject::connect(ui->saveButton, SIGNAL(clicked()), SLOT(save()));
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
     QObject::connect(ui->delButton, SIGNAL(clicked()), SLOT(loeschen()));
+
+
+    Dialog2 * dialog2 = new Dialog2(this);
+    Dialog1 * dialog1 = new Dialog1(dialog2, this);
+    // QPushButton* pushButton = new QPushButton("show dialog1", this);
+    connect(ui->planenTrainingButton, &QPushButton::pressed, this, [=](){ dialog1->show(); });
+
 
     QSqlQuery querymembershiptype("select * from membershiptype");
     while(querymembershiptype.next())

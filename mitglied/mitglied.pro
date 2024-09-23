@@ -11,12 +11,17 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mitgliedwindow.cpp \
-    mitglieddialog.cpp
+    mitglieddialog.cpp \
+    dialog1.cpp \
+    dialog2.cpp
 
 HEADERS += \
     ../db/connection.h \
     mitgliedwindow.h \
-    mitglieddialog.h
+    mitglieddialog.h \
+    dialog1.h \
+    dialog2.h
+
 
 FORMS += \
     mitgliedwindow.ui \
