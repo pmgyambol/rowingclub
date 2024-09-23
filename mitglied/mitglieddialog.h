@@ -6,6 +6,9 @@
 #include <QSqlQuery>
 #include <QMessageBox>
 
+#include <string>
+#include <vector>
+
 namespace Ui {
 class MitgliedDialog;
 }
@@ -27,6 +30,10 @@ private:
     Ui::MitgliedDialog *ui;
     // Primary Key für die Mitglieden Tabelle
     int pid;
+    // enumerated types
+    std::vector<std::string>          typ_types;
+    std::vector<std::string>          sex_types;
+    std::vector<std::string>  nationality_types;
 };
 
 #endif // MITGLIEDDIALOG_H

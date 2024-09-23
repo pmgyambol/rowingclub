@@ -38,6 +38,9 @@ void MainWindow::createActions()
     connect(ui->actionListMitglied, SIGNAL(triggered()), this, SLOT(listMitglied()));
     connect(ui->actionAddBoat,      SIGNAL(triggered()), this, SLOT(addBoat()));
     connect(ui->actionListBoat,     SIGNAL(triggered()), this, SLOT(listBoat()));
+
+    connect(ui->actionListGym,      SIGNAL(triggered()), this, SLOT(listGym()));
+    connect(ui->actionListCardios,  SIGNAL(triggered()), this, SLOT(listCardios()));
 }
 
 
@@ -61,7 +64,6 @@ void MainWindow::newMitglied()
 }
 
 
-
 void MainWindow::addBoat()
 {
     BoatDialog perwindow;
@@ -78,5 +80,22 @@ void MainWindow::listBoat()
 {
     BoatWindow *boatWindow = new BoatWindow();
     QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(boatWindow);
+    subWindow->show();
+}
+
+
+void MainWindow::listGym()
+{
+    GymWindow *gymWindow = new GymWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(gymWindow);
+    subWindow->show();
+}
+
+
+
+void MainWindow::listCardios()
+{
+    CardioWindow *cardioWindow = new CardioWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(cardioWindow);
     subWindow->show();
 }

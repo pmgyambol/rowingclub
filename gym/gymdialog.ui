@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GymDialog</class>
+ <widget class="QWidget" name="GymDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>321</width>
+    <height>357</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="pushupsLabel">
+       <property name="text">
+        <string>pushups</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="pushupsLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="squatLabel">
+       <property name="text">
+        <string>squat</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="benchPressLabel">
+       <property name="text">
+        <string>benchPress </string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="deadliftLabel">
+       <property name="text">
+        <string>deadlift</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="plankLabel">
+       <property name="text">
+        <string>plank</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="plankLineEdit"/>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="squatLineEdit"/>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="benchPressLineEdit"/>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="deadliftLineEdit"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="pullUpLineEdit"/>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="legPressLineEdit"/>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="tricepPushDownLineEdit"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="dumbbellRowLineEdit"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="pullUpLabel">
+       <property name="text">
+        <string>pullUp</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="legPressLabel">
+       <property name="text">
+        <string>legPress</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="tricepPushDownLabel">
+       <property name="text">
+        <string>tricepPushDown</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="dumbbellRowLabel">
+       <property name="text">
+        <string>dumbbellRow</string>
+       </property>
+      </widget>
+     </item>
+     <item row="9" column="1">
+      <widget class="QLineEdit" name="seatedRowLineEdit"/>
+     </item>
+     <item row="9" column="0">
+      <widget class="QLabel" name="seatedRowLabel">
+       <property name="text">
+        <string>seatedRow</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Speichern</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delButton">
+       <property name="text">
+        <string>Löschen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="quitButton">
+       <property name="text">
+        <string>Quit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -14,7 +14,11 @@ SOURCES += \
     mitglied/mitgliedwindow.cpp \
     mitglied/mitglieddialog.cpp \
     boat/boatwindow.cpp \
-    boat/boatdialog.cpp
+    boat/boatdialog.cpp \
+    gym/gymwindow.cpp \
+    gym/gymdialog.cpp \
+    cardio/cardiowindow.cpp \
+    cardio/cardiodialog.cpp
 
 HEADERS += \
     db/connection.h \
@@ -22,14 +26,22 @@ HEADERS += \
     mitglied/mitgliedwindow.h \
     mitglied/mitglieddialog.h \
     boat/boatwindow.h \
-    boat/boatdialog.h
+    boat/boatdialog.h \
+    gym/gymwindow.h \
+    gym/gymdialog.h \
+    cardio/cardiowindow.h \
+    cardio/cardiodialog.h
 
 FORMS += \
     mainwin/mainwindow.ui \
     mitglied/mitgliedwindow.ui \
     mitglied/mitglieddialog.ui \
     boat/boatwindow.ui \
-    boat/boatdialog.ui
+    boat/boatdialog.ui \
+    gym/gymwindow.ui \
+    gym/gymdialog.ui \
+    cardio/cardiowindow.ui \
+    cardio/cardiodialog.ui
 
 #SOURCES = $$files(*.cpp, true)
 #HEADERS = $$files(*.h, true)

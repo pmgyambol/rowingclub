@@ -26,13 +26,17 @@ CREATE TABLE 'membershiphistory' (
   'membershipid' INTEGER
 );
 
-
 CREATE TABLE if not exists mitglied (
   'id'            INTEGER NOT NULL,
-  'firstname'	    TEXT NOT NULL,
-  'lastname'	    TEXT,
+  'firstname'     TEXT NOT NULL,
+  'lastname'      TEXT,
+  'sex'           TEXT CHECK (sex in  ('male', 'female', 'unknown')) NOT NULL DEFAULT 'unknown',
   'birthdate'     DATE,
-  'membershipid'  INTEGER NOT NULL,
+  'nationality'   TEXT CHECK (nationality in  ('AT', 'EU', 'Other')) NOT NULL DEFAULT 'AT',
+  'membershipid'  INTEGER,
+  'membersince'   DATE,
+  'address'       TEXT NOT NULL,
+  'email'         TEXT,
   'typ'           TEXT CHECK (typ in  ('guest', 'athlete', 'trainer', 'manager', 'amateur')) NOT NULL DEFAULT 'guest',
   PRIMARY KEY('id' AUTOINCREMENT),
   FOREIGN KEY('membershipid') REFERENCES 'membership'('id')
@@ -49,15 +53,44 @@ CREATE TABLE 'boats' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-insert into boats (price,herstelldatum,typ,material,besitz) values (10000,'2020-11-24','canu',      'fabric','sponsored');
-insert into boats (price,herstelldatum,typ,material,besitz) values ( 8000,'2023-01-23','para-canu', 'fabric','club');
-insert into boats (price,herstelldatum,typ,material,besitz) values (14500,'2022-05-06','cayak',     'fabric','club');
-insert into boats (price,herstelldatum,typ,material,besitz) values ( 9900,'2015-12-09','cayak',     'carbon','private');
-insert into boats (price,herstelldatum,typ,material,besitz) values (11000,'2004-03-04','canu',      'wood',  'club');
-insert into boats (price,herstelldatum,typ,material,besitz) values (11500,'2005-07-20','para-cayak','fabric','private');
-insert into boats (price,herstelldatum,typ,material,besitz) values (14000,'2012-10-10','canu',      'fabric','private');
+CREATE TABLE 'training' (
+  id                     INTEGER,
+  boat 		               INTEGER default 0,
+  gym		                 INTEGER default 0,
+  cardio	               INTEGER default 0,
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
 
+CREATE TABLE 'gym' (
+  id             	       INTEGER,
+  pushups        	       INTEGER default 0,
+  plank 	     	         INTEGER default 0,
+  squat 	     	         INTEGER default 0,
+  benchPress             INTEGER default 0,
+  deadlift               INTEGER default 0,
+  pullUp 	     	         INTEGER default 0,
+  legPress 	     	       INTEGER default 0,
+  tricepPushDown 	       INTEGER default 0,
+  dumbbellRow 	         INTEGER default 0,
+  seatedRow 	           INTEGER default 0,
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
+
+CREATE TABLE 'cardios' (
+  id                     INTEGER,
+  paddelErgometerCanu    INTEGER default 0,
+  paddelErgometerKayak   INTEGER default 0,
+  running                INTEGER default 0,
+  bycicling              INTEGER default 0,
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
+
+
+/* ===================================================================== */
 /* ------------------------- Enumerated Types  ------------------------- */
+/* ===================================================================== */
+
+/* ---------------------------- mitglied ------------------------------- */
 
 CREATE TABLE if not exists membershiptype (
   id    INTEGER NOT NULL,
@@ -65,6 +98,22 @@ CREATE TABLE if not exists membershiptype (
   PRIMARY KEY(id AUTOINCREMENT));
 
 insert into membershiptype (type) values ('guest'), ('athlete'), ('trainer'), ('manager'), ('amateur');
+
+CREATE TABLE if not exists sextype (
+  id   INTEGER NOT NULL,
+  type TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(id AUTOINCREMENT));
+
+insert into sextype (type) values ('male'), ('female'), ('unknown');
+
+CREATE TABLE if not exists nationalitytype (
+  id   INTEGER NOT NULL,
+  type TEXT NOT NULL UNIQUE,
+  PRIMARY KEY(id AUTOINCREMENT));
+
+insert into nationalitytype (type) values ('AT'), ('EU'), ('Other');
+
+/* ---------------------==------- boat ----==--------------------------- */
 
 CREATE TABLE if not exists materialtype (
   id   INTEGER NOT NULL,
@@ -87,3 +136,25 @@ CREATE TABLE if not exists besitztype (
 
 insert into besitztype (type) values ('private'), ('sponsored'), ('club');
 
+/* =============================================================== */
+/* ------------------------- Insertions  ------------------------- */
+/* =============================================================== */
+
+insert into mitglied (firstname,lastname,sex,birthdate,nationality,membersince,address,email,typ)
+values
+('Robert','Mustermann','male',  '2004-03-04','AT','2020-03-04','Wien, Krauserstraße 38, 1050','robert.mustermann@email.mail', 'amateur' ),
+('Max',   'Mustermann','female','2002-05-08','AT','2022-03-04','Graz Krauserstraße 38 1050',  'max.mustermann@email.mail',    'athlete' );
+
+insert into boats (price,herstelldatum,typ,material,besitz) 
+values
+(10000,'2020-11-24','canu',      'fabric','sponsored'),
+( 8000,'2023-01-23','para-canu', 'fabric','club'),
+(14500,'2022-05-06','cayak',     'fabric','club'),
+( 9900,'2015-12-09','cayak',     'carbon','private'),
+(11000,'2004-03-04','canu',      'wood',  'club'),
+(11500,'2005-07-20','para-cayak','fabric','private'),
+(14000,'2012-10-10','canu',      'fabric','private');
+
+insert into gym      (pushups,plank,squat,benchPress,deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow) values (10,20,30,40,50,60,70,80,90,1);
+insert into cardios  (paddelErgometerCanu, paddelErgometerKayak, running, bycicling) values (10,10,15,30);
+insert into training (boat,cardio) values (1,2), (1,4);

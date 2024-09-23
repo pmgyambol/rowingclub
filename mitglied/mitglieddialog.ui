@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
-    <height>227</height>
+    <width>464</width>
+    <height>349</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,52 +17,92 @@
    <item>
     <layout class="QFormLayout" name="formLayout">
      <item row="0" column="0">
-      <widget class="QLabel" name="nameLabel">
+      <widget class="QLabel" name="firstnameLabel">
        <property name="text">
-        <string>Name:</string>
+        <string>Firstname</string>
        </property>
       </widget>
      </item>
      <item row="0" column="1">
-      <widget class="QLineEdit" name="nameLineEdit"/>
+      <widget class="QLineEdit" name="firstnameLineEdit"/>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="adresseLabel">
+      <widget class="QLabel" name="lastnameLabel">
        <property name="text">
-        <string>Adresse</string>
+        <string>Lastname</string>
        </property>
       </widget>
      </item>
      <item row="1" column="1">
-      <widget class="QLineEdit" name="adresseLineEdit"/>
+      <widget class="QLineEdit" name="lastnameLineEdit"/>
      </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="telefonnummerLabel">
+      <widget class="QLabel" name="addressLabel">
        <property name="text">
-        <string>Telefonnummer:</string>
+        <string>Address</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="telefonnummerLineEdit"/>
+      <widget class="QLineEdit" name="addressLineEdit"/>
      </item>
      <item row="3" column="0">
-      <widget class="QLabel" name="postleitzahlLabel">
+      <widget class="QLabel" name="emailLabel">
        <property name="text">
-        <string>Postleitzahl</string>
+        <string>Email</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QComboBox" name="postleitzahlComboBox"/>
+     <item row="4" column="0">
+      <widget class="QLabel" name="sexLabel">
+       <property name="text">
+        <string>Sex</string>
+       </property>
+      </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="membertypeComboBox"/>
+      <widget class="QComboBox" name="sexComboBox"/>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label">
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="emailLineEdit"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="typComboBox"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="typLabel">
        <property name="text">
-        <string>Typ</string>
+        <string>Type</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QComboBox" name="nationalityComboBox"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="nationalityLabel">
+       <property name="text">
+        <string>Nationality</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QDateEdit" name="birthdayDateEdit"/>
+     </item>
+     <item row="8" column="1">
+      <widget class="QDateEdit" name="membersinceDateEdit"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="birthdayLabel">
+       <property name="text">
+        <string>Birthday</string>
+       </property>
+      </widget>
+     </item>
+     <item row="8" column="0">
+      <widget class="QLabel" name="membersiceLabel">
+       <property name="text">
+        <string>Member since</string>
        </property>
       </widget>
      </item>

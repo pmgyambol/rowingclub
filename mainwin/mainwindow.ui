@@ -48,8 +48,18 @@
     <addaction name="actionNewMitglied"/>
     <addaction name="actionListMitglied"/>
    </widget>
+   <widget class="QMenu" name="menuTraining">
+    <property name="title">
+     <string>Training</string>
+    </property>
+    <addaction name="actionNewTraining"/>
+    <addaction name="actionListTraining"/>
+    <addaction name="actionListCardios"/>
+    <addaction name="actionListGym"/>
+   </widget>
    <addaction name="menuMitglied"/>
    <addaction name="menuBoat"/>
+   <addaction name="menuTraining"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNewMitglied">
@@ -73,7 +83,7 @@
     <iconset theme="list-add"/>
    </property>
    <property name="text">
-    <string>Add</string>
+    <string>New</string>
    </property>
   </action>
   <action name="actionListBoat">
@@ -82,6 +92,38 @@
    </property>
    <property name="text">
     <string>List</string>
+   </property>
+  </action>
+  <action name="actionNewTraining">
+   <property name="icon">
+    <iconset theme="list-add"/>
+   </property>
+   <property name="text">
+    <string>New Training</string>
+   </property>
+  </action>
+  <action name="actionListTraining">
+   <property name="icon">
+    <iconset theme="format-justify-fill"/>
+   </property>
+   <property name="text">
+    <string>List Training</string>
+   </property>
+  </action>
+  <action name="actionListCardios">
+   <property name="icon">
+    <iconset theme="format-justify-fill"/>
+   </property>
+   <property name="text">
+    <string>List Cardio</string>
+   </property>
+  </action>
+  <action name="actionListGym">
+   <property name="icon">
+    <iconset theme="format-justify-fill"/>
+   </property>
+   <property name="text">
+    <string>List Gym</string>
    </property>
   </action>
  </widget>

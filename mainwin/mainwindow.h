@@ -10,6 +10,11 @@
 #include "boat/boatwindow.h"
 #include "boat/boatdialog.h"
 
+#include "gym/gymwindow.h"
+#include "gym/gymdialog.h"
+
+#include "cardio/cardiowindow.h"
+#include "cardio/cardiodialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -32,6 +37,9 @@ public slots:
     void listMitglied();
     void addBoat();
     void listBoat();
+    void listGym();
+    void listCardios();
+
     void updateActions();
 
 private:

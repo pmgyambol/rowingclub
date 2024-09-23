@@ -1,15 +1,14 @@
-#include "mitgliedwindow.h"
-#include "ui_mitgliedwindow.h"
+#include "cardiowindow.h"
+#include "ui_cardiowindow.h"
 
-MitgliedWindow::MitgliedWindow(QWidget *parent)
+CardioWindow::CardioWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MitgliedWindow)
+    , ui(new Ui::CardioWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Kontakte Verwaltung");
+    this->setWindowTitle("Cardio");
 
     QObject::connect(ui->newButton, SIGNAL(clicked()), SLOT(neuerKontakt()));
-    // QObject::connect(ui->plzButton, SIGNAL(clicked()), SLOT(plzVerwaltung()));
     QObject::connect(ui->searchButton, SIGNAL(clicked()), SLOT(suchen()));
     QObject::connect(ui->actionNeuer_Kontakt, SIGNAL(triggered()), SLOT(neuerKontakt()));
     QObject::connect(ui->actionVerwaltung_Postleitzahlen, SIGNAL(triggered()), SLOT(plzVerwaltung()));
@@ -21,15 +20,15 @@ MitgliedWindow::MitgliedWindow(QWidget *parent)
     sqlquery(false);
 }
 
-MitgliedWindow::~MitgliedWindow()
+CardioWindow::~CardioWindow()
 {
     delete ui;
     delete sql;
 }
 
-void MitgliedWindow::neuerKontakt()
+void CardioWindow::neuerKontakt()
 {
-    MitgliedDialog perwindow;
+    CardioDialog perwindow;
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -38,19 +37,19 @@ void MitgliedWindow::neuerKontakt()
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der MitgliedDialogenliste
+    // Update der CardioDialogenliste
     sqlquery(false);
 }
 
-void MitgliedWindow::editKontakt(QModelIndex index)
+void CardioWindow::editKontakt(QModelIndex index)
 {
     // Zeile in der Tableview, auf die geklickt wurde
     int row = index.row();
     // wir holen mit der Zeile die versteckte PId heraus
     int pid = ui->dbView->model()->index(row, 0).data().toInt();
 
-    // MitgliedDialogen - Window starten
-    MitgliedDialog perwindow(this, pid);
+    // CardioDialogen - Window starten
+    CardioDialog perwindow(this, pid);
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -59,29 +58,28 @@ void MitgliedWindow::editKontakt(QModelIndex index)
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der MitgliedDialogenliste
+    // Update der CardioDialogenliste
     sqlquery(false);
 }
 
-void MitgliedWindow::plzVerwaltung()
+void CardioWindow::plzVerwaltung()
 {
 
 }
 
-void MitgliedWindow::suchen()
+void CardioWindow::suchen()
 {
     sqlquery(true);
 }
 
-void MitgliedWindow::verlassen()
+void CardioWindow::verlassen()
 {
     this->close();
 }
 
-void MitgliedWindow::sqlquery(bool filter)
+void CardioWindow::sqlquery(bool filter)
 {
-    QString query = "select id,firstname,lastname,sex,birthdate,nationality,membersince,address,email,typ from mitglied";
-
+    QString query = "select id,paddelErgometerCanu,paddelErgometerKayak,running,bycicling from cardios";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -89,20 +87,14 @@ void MitgliedWindow::sqlquery(bool filter)
             query += " where PName like '" + name + "%'";
     }
     sql->setQuery(query);
-    sql->setHeaderData( 0, Qt::Horizontal, "id");
-    sql->setHeaderData( 1, Qt::Horizontal, "firstname");
-    sql->setHeaderData( 2, Qt::Horizontal, "lastname");
-    sql->setHeaderData( 3, Qt::Horizontal, "sex");
-    sql->setHeaderData( 4, Qt::Horizontal, "birthday");
-    sql->setHeaderData( 5, Qt::Horizontal, "nationality");
-    sql->setHeaderData( 6, Qt::Horizontal, "membersince");
-    sql->setHeaderData( 7, Qt::Horizontal, "address");
-    sql->setHeaderData( 8, Qt::Horizontal, "email");
-    sql->setHeaderData( 9, Qt::Horizontal, "typ");
+    sql->setHeaderData(0, Qt::Horizontal, "id");
+    sql->setHeaderData(1, Qt::Horizontal, "paddelErgometerCanu");
+    sql->setHeaderData(2, Qt::Horizontal, "paddelErgometerKayak");
+    sql->setHeaderData(3, Qt::Horizontal, "running");
+    sql->setHeaderData(4, Qt::Horizontal, "bycicling");
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);
     // Id unterdrücken
     ui->dbView->hideColumn(0);
 }
-
