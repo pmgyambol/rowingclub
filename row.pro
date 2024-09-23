@@ -13,6 +13,8 @@ SOURCES += \
     mainwin/mainwindow.cpp \
     mitglied/mitgliedwindow.cpp \
     mitglied/mitglieddialog.cpp \
+    mitglied/dialog1.cpp \
+    mitglied/dialog2.cpp \
     boat/boatwindow.cpp \
     boat/boatdialog.cpp \
     gym/gymwindow.cpp \
@@ -25,6 +27,8 @@ HEADERS += \
     mainwin/mainwindow.h \
     mitglied/mitgliedwindow.h \
     mitglied/mitglieddialog.h \
+    mitglied/dialog1.h \
+    mitglied/dialog2.h \
     boat/boatwindow.h \
     boat/boatdialog.h \
     gym/gymwindow.h \
