@@ -1,20 +1,23 @@
 #include "mitgliedwindow.h"
 #include "ui_mitgliedwindow.h"
 
+#include <QDebug>
+
 MitgliedWindow::MitgliedWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MitgliedWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Kontakte Verwaltung");
+    this->setWindowTitle("Mitgliederblatt");
 
     QObject::connect(ui->newButton, SIGNAL(clicked()), SLOT(neuerKontakt()));
-    // QObject::connect(ui->plzButton, SIGNAL(clicked()), SLOT(plzVerwaltung()));
     QObject::connect(ui->searchButton, SIGNAL(clicked()), SLOT(suchen()));
     QObject::connect(ui->actionNeuer_Kontakt, SIGNAL(triggered()), SLOT(neuerKontakt()));
     QObject::connect(ui->actionVerwaltung_Postleitzahlen, SIGNAL(triggered()), SLOT(plzVerwaltung()));
     QObject::connect(ui->actionVerlassen, SIGNAL(triggered()), SLOT(verlassen()));
     QObject::connect(ui->dbView, SIGNAL(clicked(QModelIndex)), SLOT(editKontakt(QModelIndex)));
+
+    QObject::connect(ui->dbView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 
     sql = new QSqlQueryModel();
     // DB-Anzeigen
@@ -62,6 +65,16 @@ void MitgliedWindow::editKontakt(QModelIndex index)
     // Update der MitgliedDialogenliste
     sqlquery(false);
 }
+
+void MitgliedWindow::onTableClicked(QModelIndex index)
+{
+    QString cellText;
+    if (index.isValid()) {
+        cellText = index.data().toString();        
+    }
+    qDebug() << cellText.toStdString().c_str();
+}
+
 
 void MitgliedWindow::plzVerwaltung()
 {

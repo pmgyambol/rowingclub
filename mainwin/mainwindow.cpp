@@ -92,7 +92,6 @@ void MainWindow::listGym()
 }
 
 
-
 void MainWindow::listCardios()
 {
     CardioWindow *cardioWindow = new CardioWindow();

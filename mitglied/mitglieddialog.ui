@@ -106,6 +106,20 @@
        </property>
       </widget>
      </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="planenTrainingButton">
+       <property name="text">
+        <string>Planen Sie ein Training</string>
+       </property>
+      </widget>
+     </item>
+     <item row="10" column="1">
+      <widget class="QPushButton" name="trainingsgeschichteButton">
+       <property name="text">
+        <string>Trainingsgeschichte</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

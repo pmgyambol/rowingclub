@@ -20,6 +20,7 @@ public:
 public slots:
     void neuerKontakt();
     void editKontakt(QModelIndex);
+    void onTableClicked(QModelIndex);
     void plzVerwaltung();
     void suchen();
     void verlassen();
