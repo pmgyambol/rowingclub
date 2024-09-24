@@ -40,7 +40,11 @@ void MainWindow::createActions()
     connect(ui->actionListBoat,     SIGNAL(triggered()), this, SLOT(listBoat()));
 
     connect(ui->actionListGym,      SIGNAL(triggered()), this, SLOT(listGym()));
-    connect(ui->actionListCardios,  SIGNAL(triggered()), this, SLOT(listCardios()));
+    connect(ui->actionListCardios,  SIGNAL(triggered()), this, SLOT(listCardio()));
+
+    connect(ui->actionListIncome,   SIGNAL(triggered()), this, SLOT(listEinkommen()));
+    connect(ui->actionListExpense,  SIGNAL(triggered()), this, SLOT(listAufwand()));
+    connect(ui->actionShowBalance,  SIGNAL(triggered()), this, SLOT(showGleichgewicht()));
 }
 
 
@@ -91,10 +95,33 @@ void MainWindow::listGym()
     subWindow->show();
 }
 
-
-void MainWindow::listCardios()
+void MainWindow::listCardio()
 {
     CardioWindow *cardioWindow = new CardioWindow();
     QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(cardioWindow);
+    subWindow->show();
+}
+
+
+void MainWindow::listEinkommen()
+{
+    EinkommenWindow *einkommenWindow = new EinkommenWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(einkommenWindow);
+    subWindow->show();
+}
+
+
+void MainWindow::listAufwand()
+{
+    AufwandWindow *aufwandWindow = new AufwandWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(aufwandWindow);
+    subWindow->show();
+}
+
+
+void MainWindow::showGleichgewicht()
+{
+    GleichgewichtWindow *gleichgewichtWindow = new GleichgewichtWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(gleichgewichtWindow);
     subWindow->show();
 }

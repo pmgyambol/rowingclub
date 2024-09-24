@@ -16,6 +16,14 @@
 #include "cardio/cardiowindow.h"
 #include "cardio/cardiodialog.h"
 
+#include "einkommen/einkommenwindow.h"
+#include "einkommen/einkommendialog.h"
+
+#include "aufwand/aufwandwindow.h"
+#include "aufwand/aufwanddialog.h"
+
+#include "gleichgewicht/gleichgewichtwindow.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -38,7 +46,10 @@ public slots:
     void addBoat();
     void listBoat();
     void listGym();
-    void listCardios();
+    void listCardio();
+    void listEinkommen();
+    void listAufwand();
+    void showGleichgewicht();
 
     void updateActions();
 

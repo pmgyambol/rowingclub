@@ -1,6 +1,11 @@
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS mitglied;
 DROP TABLE IF EXISTS boats;
+DROP TABLE IF EXISTS gym;
+DROP TABLE IF EXISTS cardios;
+DROP TABLE IF EXISTS tarining;
+DROP TABLE IF EXISTS еinkommen;
+DROP TABLE IF EXISTS аufwand;
 
 CREATE TABLE users (
   username TEXT PRIMARY KEY NOT NULL,
@@ -43,7 +48,7 @@ CREATE TABLE if not exists mitglied (
 );
 
 /* объркващо е, лодките трябва да имам някакво ID с което да се различават една от друга */
-CREATE TABLE 'boats' (
+CREATE TABLE if not exists 'boats' (
   id             INTEGER,
   price          INTEGER,
   herstelldatum  DATE NULL DEFAULT NULL,
@@ -53,7 +58,9 @@ CREATE TABLE 'boats' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-CREATE TABLE 'training' (
+/* ----------------------------------- trainieren ----------------------------------- */
+
+CREATE TABLE if not exists 'training' (
   id                     INTEGER,
   boat 		               INTEGER default 0,
   gym		                 INTEGER default 0,
@@ -61,7 +68,7 @@ CREATE TABLE 'training' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-CREATE TABLE 'gym' (
+CREATE TABLE if not exists 'gym' (
   id             	       INTEGER,
   pushups        	       INTEGER default 0,
   plank 	     	         INTEGER default 0,
@@ -76,7 +83,7 @@ CREATE TABLE 'gym' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-CREATE TABLE 'cardios' (
+CREATE TABLE if not exists 'cardios' (
   id                     INTEGER,
   paddelErgometerCanu    INTEGER default 0,
   paddelErgometerKayak   INTEGER default 0,
@@ -85,12 +92,48 @@ CREATE TABLE 'cardios' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
+/* ----------------------------------- Finanzen ----------------------------------- */
+
+CREATE TABLE if not exists 'gleichgewicht' (
+  id                     INTEGER,
+  startdatum             DATE,
+  enddatum               DATE,
+  gesamteinkommen        DOUBLE,
+  gesamtkosten           DOUBLE,
+  gesamtsaldo            DOUBLE,
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
+
+CREATE TABLE if not exists 'einkommen' (
+  id                     INTEGER,
+  mitgliedsbeitrag       DOUBLE,
+  bootsverleih           DOUBLE,
+  gastebeitrag           DOUBLE,
+  bootshausmieten        DOUBLE,
+  foderationssubvention  DOUBLE,
+  werbung                DOUBLE, 
+  freiearbeit            DOUBLE, 
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
+
+CREATE TABLE if not exists 'aufwand' (
+  id                     INTEGER,
+  fixedcost              DOUBLE,
+  salaries               DOUBLE,
+  rent                   DOUBLE,
+  electricity            DOUBLE,
+  water                  DOUBLE,
+  heating                DOUBLE,
+  amortization           DOUBLE,
+  gekauftesMaterial      DOUBLE,
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
 
 /* ===================================================================== */
 /* ------------------------- Enumerated Types  ------------------------- */
 /* ===================================================================== */
 
-/* ---------------------------- mitglied ------------------------------- */
+/* -----------------------==--- mitglied ---==-------------------------- */
 
 CREATE TABLE if not exists membershiptype (
   id    INTEGER NOT NULL,
@@ -113,7 +156,7 @@ CREATE TABLE if not exists nationalitytype (
 
 insert into nationalitytype (type) values ('AT'), ('EU'), ('Other');
 
-/* ---------------------==------- boat ----==--------------------------- */
+/* ------------------------==--- boat ---==--------------------------- */
 
 CREATE TABLE if not exists materialtype (
   id   INTEGER NOT NULL,
@@ -158,3 +201,13 @@ values
 insert into gym      (pushups,plank,squat,benchPress,deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow) values (10,20,30,40,50,60,70,80,90,1);
 insert into cardios  (paddelErgometerCanu, paddelErgometerKayak, running, bycicling) values (10,10,15,30);
 insert into training (boat,cardio) values (1,2), (1,4);
+
+insert into einkommen (mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit)
+values
+(10.0, 20.0, 30.0, 40.0, 50.0, 60.0, 70.0),
+(11.1, 22.2, 33.3, 44.4, 55.5, 66.6, 77.7);
+
+insert into aufwand (fixedcost, salaries, rent, electricity, water, heating, amortization, gekauftesMaterial)
+values
+(10.8, 20.7, 30.6, 40.5, 50.4, 60.3, 70.2, 80.1),
+(91.1, 92.2, 93.3, 94.4, 95.5, 96.6, 97.7, 98.8);

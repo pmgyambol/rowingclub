@@ -1,5 +1,5 @@
-#ifndef MITGLIEDDIALOG_H
-#define MITGLIEDDIALOG_H
+#ifndef PLANENTRAININGDIALOG_H
+#define PLANENTRAININGDIALOG_H
 
 #include <QDebug>
 #include <QDialog>
@@ -9,19 +9,17 @@
 #include <string>
 #include <vector>
 
-#include "planentrainingdialog.h"
-
 namespace Ui {
-class MitgliedDialog;
+class PlanenTrainingDialog;
 }
 
-class MitgliedDialog : public QDialog
+class PlanenTrainingDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit MitgliedDialog(QWidget *parent = nullptr, int pid = 0);
-    ~MitgliedDialog();
+    explicit PlanenTrainingDialog(QWidget *parent = nullptr, int pid = 0);
+    ~PlanenTrainingDialog();
 
 public slots:
     void save();
@@ -30,7 +28,7 @@ public slots:
     void planen_training();
 
 private:
-    Ui::MitgliedDialog *ui;
+    Ui::PlanenTrainingDialog *ui;
     // Primary Key für die Mitglieden Tabelle
     int pid;
     // enumerated types

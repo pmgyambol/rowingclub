@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EinkommenDialog</class>
+ <widget class="QWidget" name="EinkommenDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>321</width>
+    <height>264</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="mitgliedsbeitragLabel">
+       <property name="text">
+        <string>mitgliedsbeitrag</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="mitgliedsbeitragLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="bootsverleihLabel">
+       <property name="text">
+        <string>bootsverleih</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="bootsverleihLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="gastebeitragLabel">
+       <property name="text">
+        <string>gastebeitrag</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="gastebeitragLineEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="bootshausmietenLabel">
+       <property name="text">
+        <string>bootshausmieten</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="bootshausmietenLineEdit"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="foderationssubventionLabel">
+       <property name="text">
+        <string>foderationssubvention</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="foderationssubventionLineEdit"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="werbungLabel">
+       <property name="text">
+        <string>werbung</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="werbungLineEdit"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="freiearbeitLabel">
+       <property name="text">
+        <string>freiearbeit</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="freiearbeitLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Speichern</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delButton">
+       <property name="text">
+        <string>Löschen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="quitButton">
+       <property name="text">
+        <string>Quit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

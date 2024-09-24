@@ -1,32 +1,24 @@
-#include "mitglieddialog.h"
-#include "ui_mitglieddialog.h"
+#include "planentrainingdialog.h"
+#include "ui_planentrainingdialog.h"
 
 #include <QPushButton>
 
 using namespace std;
 
-MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
+PlanenTrainingDialog::PlanenTrainingDialog(QWidget *parent, int pid) :
     QDialog(parent),
-    ui(new Ui::MitgliedDialog),
+    ui(new Ui::PlanenTrainingDialog),
     pid(pid)
 {
+    /*
     ui->setupUi(this);
-    this->setWindowTitle("MitgliedDialog editieren");
+    this->setWindowTitle("PlanenTrainingDialog editieren");
 
     QObject::connect(ui->saveButton, SIGNAL(clicked()), SLOT(save()));
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
     QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
 
     QObject::connect(ui->planenTrainingButton, SIGNAL(pressed()), SLOT(planen_training()));
-/*
-    Dialog2 * dialog2 = new Dialog2(this);
-    Dialog1 * dialog1 = new Dialog1(dialog2, this);
-    // QPushButton* pushButton = new QPushButton("show dialog1", this);
-    // MitgliedDialog *md = new MitgliedDialog(pid);
-    //MitgliedDialog perwindow(this, pid);
-    connect(ui->planenTrainingButton, &QPushButton::pressed, this, [=](){ dialog1->show(); });
-    //connect(ui->planenTrainingButton, &QPushButton::pressed, this, [=](){ perwindow->show(); });
-*/
 
     QSqlQuery querymembershiptype("select * from membershiptype");
     while(querymembershiptype.next())
@@ -49,7 +41,7 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
         nationality_types.push_back(querynationalitytype.value(1).toString().toStdString());
     }
 
-    // MitgliedDialogen-Datensatz holen
+    // PlanenTrainingDialogen-Datensatz holen
     if (pid != 0)
     {
         QSqlQuery queryone("select * from mitglied where id = " + QString::number(pid));
@@ -69,15 +61,17 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
     }
     else
         ui->delButton->setDisabled(true);
+*/
 }
 
-MitgliedDialog::~MitgliedDialog()
+PlanenTrainingDialog::~PlanenTrainingDialog()
 {
     delete ui;
 }
 
-void MitgliedDialog::save()
+void PlanenTrainingDialog::save()
 {
+/*
     QString fname = ui->firstnameLineEdit->text();
     QString lname = ui->lastnameLineEdit->text();
     QString adr   = ui->addressLineEdit->text();
@@ -147,15 +141,17 @@ void MitgliedDialog::save()
     }
     // Window schließen
     verlassen();
+*/
 }
 
-void MitgliedDialog::loeschen()
+void PlanenTrainingDialog::loeschen()
 {
+/*
     // Löschen macht nur Sinn, bei einem vorhandenen Datensatz
     if (pid != 0) {
         QMessageBox msg;
         msg.setText("Willst du wirklich löschen?");
-        msg.setWindowTitle("MitgliedDialog löschen");
+        msg.setWindowTitle("PlanenTrainingDialog löschen");
         msg.setStandardButtons(QMessageBox::Yes | QMessageBox::Cancel);
         msg.setDefaultButton(QMessageBox::Yes);
         QAbstractButton *but = msg.button(QMessageBox::Yes);
@@ -167,15 +163,17 @@ void MitgliedDialog::loeschen()
             verlassen();
         }
     }
+*/
 }
 
-void MitgliedDialog::verlassen()
+void PlanenTrainingDialog::verlassen()
 {
     this->close();
 }
 
-void MitgliedDialog::planen_training()
+void PlanenTrainingDialog::planen_training()
 {
+/*
     PlanenTrainingDialog perwindow(this, pid);
     // Modales Window:
     // Es ist das oberste Window
@@ -184,4 +182,5 @@ void MitgliedDialog::planen_training()
     perwindow.show();
     perwindow.exec();
     //sqlquery(false);
+*/
 }

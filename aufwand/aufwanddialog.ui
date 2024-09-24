@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AufwandDialog</class>
+ <widget class="QWidget" name="AufwandDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>321</width>
+    <height>295</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QFormLayout" name="formLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="fixedcostLabel">
+       <property name="text">
+        <string>fixedcost</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="fixedcostLineEdit"/>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="salariesLabel">
+       <property name="text">
+        <string>salaries</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="salariesLineEdit"/>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="rentLabel">
+       <property name="text">
+        <string>rent</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="rentLineEdit"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="electricityLabel">
+       <property name="text">
+        <string>electricity</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="electricityLineEdit"/>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="waterLabel">
+       <property name="text">
+        <string>water</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="waterLineEdit"/>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="heatingLabel">
+       <property name="text">
+        <string>heating</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="heatingLineEdit"/>
+     </item>
+     <item row="6" column="0">
+      <widget class="QLabel" name="amortizationLabel">
+       <property name="text">
+        <string>amortization</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="amortizationLineEdit"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="gekauftesMaterialLabel">
+       <property name="text">
+        <string>gekauftesMaterial</string>
+       </property>
+      </widget>
+     </item>
+     <item row="7" column="1">
+      <widget class="QLineEdit" name="gekauftesMaterialLineEdit"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QPushButton" name="saveButton">
+       <property name="text">
+        <string>Speichern</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="delButton">
+       <property name="text">
+        <string>Löschen</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="quitButton">
+       <property name="text">
+        <string>Quit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

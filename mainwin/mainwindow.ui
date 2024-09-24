@@ -57,9 +57,18 @@
     <addaction name="actionListCardios"/>
     <addaction name="actionListGym"/>
    </widget>
+   <widget class="QMenu" name="menuFinance">
+    <property name="title">
+     <string>Finance</string>
+    </property>
+    <addaction name="actionShowBalance"/>
+    <addaction name="actionListIncome"/>
+    <addaction name="actionListExpense"/>
+   </widget>
    <addaction name="menuMitglied"/>
    <addaction name="menuBoat"/>
    <addaction name="menuTraining"/>
+   <addaction name="menuFinance"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionNewMitglied">
@@ -124,6 +133,30 @@
    </property>
    <property name="text">
     <string>List Gym</string>
+   </property>
+  </action>
+  <action name="actionShowBalance">
+   <property name="icon">
+    <iconset theme="edit-cut"/>
+   </property>
+   <property name="text">
+    <string>Balance</string>
+   </property>
+  </action>
+  <action name="actionListIncome">
+   <property name="icon">
+    <iconset theme="list-remove"/>
+   </property>
+   <property name="text">
+    <string>Income</string>
+   </property>
+  </action>
+  <action name="actionListExpense">
+   <property name="icon">
+    <iconset theme="list-add"/>
+   </property>
+   <property name="text">
+    <string>Expence</string>
    </property>
   </action>
  </widget>
