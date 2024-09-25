@@ -1,5 +1,9 @@
 #include <QMainWindow>
+#include <QMessageBox>
+#include <QDebug>
 #include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlRecord>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class GleichgewichtWindow; }
@@ -14,13 +18,10 @@ public:
     ~GleichgewichtWindow();
 
 public slots:
-/*
-    void neuerKontakt();
-    void editKontakt(QModelIndex);
-    void plzVerwaltung();
-    void suchen();
-    void verlassen();
-*/
+    float auswand();
+    float einkommen();
+    void  gleichgewicht();
+
 private:
     Ui::GleichgewichtWindow *ui;
     QSqlQueryModel *sql;

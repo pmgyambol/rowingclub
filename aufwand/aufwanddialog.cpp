@@ -32,6 +32,7 @@ AufwandDialog::AufwandDialog(QWidget *parent, int pid) :
             ui->heatingLineEdit->setText(queryone.value(6).toString());
             ui->amortizationLineEdit->setText(queryone.value(7).toString());
             ui->gekauftesMaterialLineEdit->setText(queryone.value(8).toString());
+            ui->datumDateEdit->setDate(queryone.value(9).toDate());
         }
     }
     else
@@ -45,21 +46,23 @@ AufwandDialog::~AufwandDialog()
 
 void AufwandDialog::save()
 {
-    QString fixedcost         =  ui->fixedcostLineEdit->text();
-    QString salaries          =  ui->salariesLineEdit->text();
-    QString rent              =  ui->rentLineEdit->text();
-    QString electricity       =  ui->electricityLineEdit->text();
-    QString water             =  ui->waterLineEdit->text();
-    QString heating           =  ui->heatingLineEdit->text();
-    QString amortization      =  ui->amortizationLineEdit->text();
-    QString gekauftesMaterial =  ui->gekauftesMaterialLineEdit->text();
+    QString fixedcost         = ui->fixedcostLineEdit->text();
+    QString salaries          = ui->salariesLineEdit->text();
+    QString rent              = ui->rentLineEdit->text();
+    QString electricity       = ui->electricityLineEdit->text();
+    QString water             = ui->waterLineEdit->text();
+    QString heating           = ui->heatingLineEdit->text();
+    QString amortization      = ui->amortizationLineEdit->text();
+    QString gekauftesMaterial = ui->gekauftesMaterialLineEdit->text();
+
+    string  datum             = ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString();
 
     if (pid == 0)
     {
         // Speichern in die Datenbank
         QSqlQuery insert;
-        insert.prepare("insert into aufwand ( fixedcost, salaries, rent, electricity, water, heating, amortization, gekauftesMaterial) values \
-                                            (:fixedcost,:salaries,:rent,:electricity,:water,:heating,:amortization,:gekauftesMaterial)");
+        insert.prepare("insert into aufwand ( fixedcost, salaries, rent, electricity, water, heating, amortization, gekauftesMaterial, datum) values \
+                                            (:fixedcost,:salaries,:rent,:electricity,:water,:heating,:amortization,:gekauftesMaterial,:datum)");
         insert.bindValue(":fixedcost", fixedcost);
         insert.bindValue(":salaries", salaries);
         insert.bindValue(":rent", rent);
@@ -68,6 +71,7 @@ void AufwandDialog::save()
         insert.bindValue(":heating", heating);
         insert.bindValue(":amortization", amortization);
         insert.bindValue(":gekauftesMaterial", gekauftesMaterial);
+        insert.bindValue(":datum", datum.c_str());
 
         if (!insert.exec())
         {
@@ -85,7 +89,7 @@ void AufwandDialog::save()
         QSqlQuery update;
         update.prepare("update aufwand set \
                         fixedcost=:fixedcost, salaries=:salaries, rent=:rent, electricity=:electricity, water=:water, \
-                        heating=:heating, amortization=:amortization, gekauftesMaterial=:gekauftesMaterial \
+                        heating=:heating, amortization=:amortization, gekauftesMaterial=:gekauftesMaterial, datum=:datum \
                         where id = " + QString::number(pid));
         update.bindValue(":fixedcost", fixedcost);
         update.bindValue(":salaries", salaries);
@@ -95,6 +99,7 @@ void AufwandDialog::save()
         update.bindValue(":heating", heating);
         update.bindValue(":amortization", amortization);
         update.bindValue(":gekauftesMaterial", gekauftesMaterial);
+        update.bindValue(":datum", datum.c_str());
 
         if (!update.exec())
         {
@@ -104,7 +109,7 @@ void AufwandDialog::save()
             msg.addButton("Ok", QMessageBox::YesRole);
             msg.exec();
         }
-        qDebug() << update.lastQuery();
+        // qDebug() << update.lastQuery();
     }
 
     // Window schließen
@@ -132,6 +137,7 @@ void AufwandDialog::loeschen()
         }
     }
 }
+
 
 void AufwandDialog::verlassen()
 {

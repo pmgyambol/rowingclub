@@ -82,7 +82,7 @@ void EinkommenWindow::verlassen()
 
 void EinkommenWindow::sqlquery(bool filter)
 {
-    QString query = "select id, mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit from einkommen";
+    QString query = "select id, mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit, datum from einkommen";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -98,6 +98,7 @@ void EinkommenWindow::sqlquery(bool filter)
     sql->setHeaderData(5, Qt::Horizontal, "foderationssubvention");
     sql->setHeaderData(6, Qt::Horizontal, "werbung");
     sql->setHeaderData(7, Qt::Horizontal, "freiearbeit");
+    sql->setHeaderData(8, Qt::Horizontal, "datum");
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);

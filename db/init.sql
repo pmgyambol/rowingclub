@@ -112,7 +112,8 @@ CREATE TABLE if not exists 'einkommen' (
   bootshausmieten        DOUBLE,
   foderationssubvention  DOUBLE,
   werbung                DOUBLE, 
-  freiearbeit            DOUBLE, 
+  freiearbeit            DOUBLE,
+  datum                  DATE NOT NULL DEFAULT (DATE('now')),
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
@@ -126,6 +127,7 @@ CREATE TABLE if not exists 'aufwand' (
   heating                DOUBLE,
   amortization           DOUBLE,
   gekauftesMaterial      DOUBLE,
+  datum                  DATE NOT NULL DEFAULT (DATE('now')),
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 

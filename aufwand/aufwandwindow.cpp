@@ -82,7 +82,7 @@ void AufwandWindow::verlassen()
 
 void AufwandWindow::sqlquery(bool filter)
 {
-    QString query = "select id, fixedcost, salaries, rent, electricity, water, heating, amortization, gekauftesMaterial from aufwand";
+    QString query = "select id, fixedcost, salaries, rent, electricity, water, heating, amortization, gekauftesMaterial, datum from aufwand";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -99,6 +99,7 @@ void AufwandWindow::sqlquery(bool filter)
     sql->setHeaderData( 6, Qt::Horizontal, "heating");
     sql->setHeaderData( 7, Qt::Horizontal, "amortization");
     sql->setHeaderData( 8, Qt::Horizontal, "gekauftesMaterial");
+    sql->setHeaderData( 9, Qt::Horizontal, "datum");
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);

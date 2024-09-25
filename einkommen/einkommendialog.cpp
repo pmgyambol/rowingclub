@@ -31,6 +31,7 @@ EinkommenDialog::EinkommenDialog(QWidget *parent, int pid) :
             ui->foderationssubventionLineEdit->setText(queryone.value(5).toString());
             ui->werbungLineEdit->setText(queryone.value(6).toString());
             ui->freiearbeitLineEdit->setText(queryone.value(7).toString());
+            ui->datumDateEdit->setDate(queryone.value(8).toDate());
         }
     }
     else
@@ -52,13 +53,15 @@ void EinkommenDialog::save()
     QString werbung               =  ui->werbungLineEdit->text();
     QString freiearbeit           =  ui->freiearbeitLineEdit->text();
 
+    string  datum                  = ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString();
+
     if (pid == 0)
     {
         // Speichern in die Datenbank
         QSqlQuery insert;
         insert.prepare("insert into einkommen \
-                        ( mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit) values \
-                        (:mitgliedsbeitrag,:bootsverleih,:gastebeitrag,:bootshausmieten,:foderationssubvention,:werbung,:freiearbeit)");
+                        ( mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit, datum) values \
+                        (:mitgliedsbeitrag,:bootsverleih,:gastebeitrag,:bootshausmieten,:foderationssubvention,:werbung,:freiearbeit,:datum)");
         insert.bindValue(":mitgliedsbeitrag", mitgliedsbeitrag);
         insert.bindValue(":bootsverleih", bootsverleih);
         insert.bindValue(":gastebeitrag", gastebeitrag);
@@ -66,6 +69,7 @@ void EinkommenDialog::save()
         insert.bindValue(":foderationssubvention", foderationssubvention);
         insert.bindValue(":werbung", werbung);
         insert.bindValue(":freiearbeit", freiearbeit);
+        insert.bindValue(":datum", datum.c_str());
 
         if (!insert.exec())
         {
@@ -84,7 +88,7 @@ void EinkommenDialog::save()
         update.prepare("update einkommen set \
                         mitgliedsbeitrag=:mitgliedsbeitrag, bootsverleih=:bootsverleih, gastebeitrag=:gastebeitrag, \
                         bootshausmieten=:bootshausmieten, foderationssubvention=:foderationssubvention, \
-                        werbung=:werbung, freiearbeit=:freiearbeit \
+                        werbung=:werbung, freiearbeit=:freiearbeit, datum=:datum \
                         where id = " + QString::number(pid));
         update.bindValue(":mitgliedsbeitrag", mitgliedsbeitrag);
         update.bindValue(":bootsverleih", bootsverleih);
@@ -93,6 +97,7 @@ void EinkommenDialog::save()
         update.bindValue(":foderationssubvention", foderationssubvention);
         update.bindValue(":werbung", werbung);
         update.bindValue(":freiearbeit", freiearbeit);
+        update.bindValue(":datum", datum.c_str());
 
         if (!update.exec())
         {
