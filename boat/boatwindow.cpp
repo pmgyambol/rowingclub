@@ -6,7 +6,7 @@ BoatWindow::BoatWindow(QWidget *parent)
     , ui(new Ui::BoatWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Kontakte Verwaltung");
+    this->setWindowTitle("Bootsliste");
 
     QObject::connect(ui->newButton, SIGNAL(clicked()), SLOT(neuerKontakt()));
     // QObject::connect(ui->plzButton, SIGNAL(clicked()), SLOT(plzVerwaltung()));

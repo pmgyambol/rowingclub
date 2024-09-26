@@ -68,7 +68,10 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
         }
     }
     else
+    {
         ui->delButton->setDisabled(true);
+        ui->planenTrainingButton->setDisabled(true);
+    }
 }
 
 MitgliedDialog::~MitgliedDialog()

@@ -81,6 +81,7 @@ void BoatDialog::save()
         insert.bindValue(     ":typ",      typ_types[type_id_typ     ].c_str());
         insert.bindValue(":material", material_types[type_id_material].c_str());
         insert.bindValue(  ":besitz",   besitz_types[type_id_besitz  ].c_str());
+
         if (!insert.exec())
         {
             QMessageBox msg;
@@ -101,7 +102,7 @@ void BoatDialog::save()
         update.bindValue(     ":typ",      typ_types[type_id_typ     ].c_str());
         update.bindValue(":material", material_types[type_id_material].c_str());
         update.bindValue(  ":besitz",   besitz_types[type_id_besitz  ].c_str());
-        //qDebug() << typ_types[type_id_typ     ].c_str() << " " << material_types[type_id_material].c_str() << " " << besitz_types[type_id_besitz  ].c_str() << "\n";
+
         if (!update.exec())
         {
             QMessageBox msg;
