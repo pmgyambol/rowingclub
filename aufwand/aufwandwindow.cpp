@@ -9,7 +9,7 @@ AufwandWindow::AufwandWindow(QWidget *parent)
     , ui(new Ui::AufwandWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Trainigs Program");
+    this->setWindowTitle("Aufwand");
 
     QObject::connect(ui->newButton, SIGNAL(clicked()), SLOT(neuerKontakt()));
     QObject::connect(ui->searchButton, SIGNAL(clicked()), SLOT(suchen()));

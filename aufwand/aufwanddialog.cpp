@@ -18,6 +18,8 @@ AufwandDialog::AufwandDialog(QWidget *parent, int pid) :
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
     QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
 
+    ui->datumDateEdit->setDate(QDate::currentDate());
+
     // AufwandDialogen-Datensatz holen
     if (pid != 0)
     {

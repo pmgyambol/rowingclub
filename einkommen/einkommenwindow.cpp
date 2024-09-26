@@ -9,7 +9,7 @@ EinkommenWindow::EinkommenWindow(QWidget *parent)
     , ui(new Ui::EinkommenWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("Trainigs Program");
+    this->setWindowTitle("Einkommen");
 
     QObject::connect(ui->newButton, SIGNAL(clicked()), SLOT(neuerKontakt()));
     QObject::connect(ui->searchButton, SIGNAL(clicked()), SLOT(suchen()));
