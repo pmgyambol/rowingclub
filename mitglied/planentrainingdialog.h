@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "gym/gymwindow.h"
+
 namespace Ui {
 class PlanenTrainingDialog;
 }
@@ -25,6 +27,11 @@ public slots:
     void save();
     void loeschen();
     void verlassen();
+
+    void cardio();
+    void gym();
+    void boat();
+
     void planen_training();
 
 private:

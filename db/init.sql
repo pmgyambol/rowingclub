@@ -69,17 +69,19 @@ CREATE TABLE if not exists 'training' (
 );
 
 CREATE TABLE if not exists 'gym' (
-  id             	       INTEGER,
-  pushups        	       INTEGER default 0,
-  plank 	     	         INTEGER default 0,
-  squat 	     	         INTEGER default 0,
-  benchPress             INTEGER default 0,
-  deadlift               INTEGER default 0,
-  pullUp 	     	         INTEGER default 0,
-  legPress 	     	       INTEGER default 0,
-  tricepPushDown 	       INTEGER default 0,
-  dumbbellRow 	         INTEGER default 0,
-  seatedRow 	           INTEGER default 0,
+  'id'             	       INTEGER,
+  'name'                   TEXT,
+  'pushups'        	       INTEGER default 0,
+  'plank' 	     	         INTEGER default 0,
+  'squat' 	     	         INTEGER default 0,
+  'benchPress'             INTEGER default 0,
+  'deadlift'               INTEGER default 0,
+  'pullUp' 	     	         INTEGER default 0,
+  'legPress' 	     	       INTEGER default 0,
+  'tricepPushDown'	       INTEGER default 0,
+  'dumbbellRow' 	         INTEGER default 0,
+  'seatedRow' 	           INTEGER default 0,
+  'visible'                INTEGER default 1,
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
-    <height>349</height>
+    <width>556</width>
+    <height>369</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,109 +16,81 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QFormLayout" name="formLayout">
+     <property name="labelAlignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="formAlignment">
+      <set>Qt::AlignCenter</set>
+     </property>
      <item row="0" column="0">
-      <widget class="QLabel" name="firstnameLabel">
+      <widget class="QPushButton" name="cardioButton">
        <property name="text">
-        <string>Firstname</string>
+        <string>cardio</string>
        </property>
       </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="firstnameLineEdit"/>
      </item>
      <item row="1" column="0">
-      <widget class="QLabel" name="lastnameLabel">
+      <widget class="QPushButton" name="gymButton">
        <property name="text">
-        <string>Lastname</string>
+        <string>gym</string>
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="lastnameLineEdit"/>
-     </item>
      <item row="2" column="0">
-      <widget class="QLabel" name="addressLabel">
+      <widget class="QPushButton" name="boatButton">
        <property name="text">
-        <string>Address</string>
+        <string>boat</string>
        </property>
       </widget>
      </item>
      <item row="2" column="1">
-      <widget class="QLineEdit" name="addressLineEdit"/>
+      <widget class="QLineEdit" name="boatLineEdit"/>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="emailLabel">
-       <property name="text">
-        <string>Email</string>
+     <item row="3" column="1">
+      <widget class="QDateEdit" name="datumDateEdit">
+       <property name="displayFormat">
+        <string>yyyy-MM-dd</string>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="sexLabel">
+     <item row="3" column="0">
+      <widget class="QLabel" name="datumLabel">
        <property name="text">
-        <string>Sex</string>
+        <string>datum</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignJustify|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item row="4" column="1">
-      <widget class="QComboBox" name="sexComboBox"/>
+      <widget class="QTextEdit" name="coachTextEdit"/>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="emailLineEdit"/>
+     <item row="4" column="0">
+      <widget class="QLabel" name="coachLabel">
+       <property name="text">
+        <string>coach</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
      </item>
      <item row="5" column="1">
-      <widget class="QComboBox" name="typComboBox"/>
+      <widget class="QTextEdit" name="mitgliedTextEdit"/>
      </item>
      <item row="5" column="0">
-      <widget class="QLabel" name="typLabel">
+      <widget class="QLabel" name="mitgliedLabel">
        <property name="text">
-        <string>Type</string>
+        <string>mitglied</string>
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QComboBox" name="nationalityComboBox"/>
+     <item row="0" column="1">
+      <widget class="QComboBox" name="cardioComboBox"/>
      </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="nationalityLabel">
-       <property name="text">
-        <string>Nationality</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QDateEdit" name="birthdayDateEdit"/>
-     </item>
-     <item row="8" column="1">
-      <widget class="QDateEdit" name="membersinceDateEdit"/>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="birthdayLabel">
-       <property name="text">
-        <string>Birthday</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="membersiceLabel">
-       <property name="text">
-        <string>Member since</string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QPushButton" name="planenTrainingButton">
-       <property name="text">
-        <string>Planen Sie ein Training</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="QPushButton" name="trainingsgeschichteButton">
-       <property name="text">
-        <string>Trainingsgeschichte</string>
-       </property>
-      </widget>
+     <item row="1" column="1">
+      <widget class="QComboBox" name="gymComboBox"/>
      </item>
     </layout>
    </item>

@@ -1,5 +1,9 @@
+#ifndef GYMWINDOW_H
+#define GYMWINDOW_H
+
 #include <QMainWindow>
 #include <QSqlQueryModel>
+
 #include "gymdialog.h"
 
 QT_BEGIN_NAMESPACE
@@ -26,3 +30,4 @@ private:
     QSqlQueryModel *sql;
     void sqlquery(bool filter);
 };
+#endif

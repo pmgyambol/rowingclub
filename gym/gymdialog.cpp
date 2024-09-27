@@ -24,16 +24,18 @@ GymDialog::GymDialog(QWidget *parent, int pid) :
         QSqlQuery queryone("select * from gym where id = " + QString::number(pid));
         if (queryone.next())
         {
-            ui->pushupsLineEdit->setText(queryone.value(1).toString());
-            ui->plankLineEdit->setText(queryone.value(2).toString());
-            ui->squatLineEdit->setText(queryone.value(3).toString());
-            ui->benchPressLineEdit->setText(queryone.value(4).toString());
-            ui->deadliftLineEdit->setText(queryone.value(5).toString());
-            ui->pullUpLineEdit->setText(queryone.value(6).toString());
-            ui->legPressLineEdit->setText(queryone.value(7).toString());
-            ui->tricepPushDownLineEdit->setText(queryone.value(8).toString());
-            ui->dumbbellRowLineEdit->setText(queryone.value(9).toString());
-            ui->seatedRowLineEdit->setText(queryone.value(10).toString());
+            ui->nameLineEdit->setText(queryone.value(1).toString());
+            ui->pushupsLineEdit->setText(queryone.value(2).toString());
+            ui->plankLineEdit->setText(queryone.value(3).toString());
+            ui->squatLineEdit->setText(queryone.value(4).toString());
+            ui->benchPressLineEdit->setText(queryone.value(5).toString());
+            ui->deadliftLineEdit->setText(queryone.value(6).toString());
+            ui->pullUpLineEdit->setText(queryone.value(7).toString());
+            ui->legPressLineEdit->setText(queryone.value(8).toString());
+            ui->tricepPushDownLineEdit->setText(queryone.value(9).toString());
+            ui->dumbbellRowLineEdit->setText(queryone.value(10).toString());
+            ui->seatedRowLineEdit->setText(queryone.value(11).toString());
+            ui->visibilityLineEdit->setText(queryone.value(12).toString());
         }
     }
     else
@@ -47,6 +49,7 @@ GymDialog::~GymDialog()
 
 void GymDialog::save()
 {
+    QString name           =  ui->nameLineEdit->text();
     QString pushups        =  ui->pushupsLineEdit->text();
     QString plank          =  ui->plankLineEdit->text();
     QString squat          =  ui->squatLineEdit->text();
@@ -57,13 +60,15 @@ void GymDialog::save()
     QString tricepPushDown =  ui->tricepPushDownLineEdit->text();
     QString dumbbellRow    =  ui->dumbbellRowLineEdit->text();
     QString seatedRow      =  ui->seatedRowLineEdit->text();
+    QString visible        =  ui->visibilityLineEdit->text();
 
     if (pid == 0)
     {
         // Speichern in die Datenbank
         QSqlQuery insert;
-        insert.prepare("insert into gym ( pushups, plank, squat, benchPress, deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow) values \
-                                        (:pushups,:plank,:squat,:benchPress,:deadlift,:pullUp,:legPress,:tricepPushDown,:dumbbellRow,:seatedRow)");
+        insert.prepare("insert into gym ( name, pushups, plank, squat, benchPress, deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow, visible) values \
+                                        (:name,:pushups,:plank,:squat,:benchPress,:deadlift,:pullUp,:legPress,:tricepPushDown,:dumbbellRow,:seatedRow,:visible)");
+        insert.bindValue(":name", name);
         insert.bindValue(":pushups", pushups);
         insert.bindValue(":plank", plank);
         insert.bindValue(":squat", squat);
@@ -74,6 +79,7 @@ void GymDialog::save()
         insert.bindValue(":tricepPushDown", tricepPushDown);
         insert.bindValue(":dumbbellRow", dumbbellRow);
         insert.bindValue(":seatedRow", seatedRow);
+        insert.bindValue(":visible", visible);
 
         if (!insert.exec())
         {
@@ -90,9 +96,10 @@ void GymDialog::save()
         // WHERE condition;
         QSqlQuery update;
         update.prepare("update gym set \
-                        pushups=:pushups, plank=:plank, squat=:squat, benchPress=:benchPress, deadlift=:deadlift, \
-                        pullUp=:pullUp, legPress=:legPress, tricepPushDown=:tricepPushDown, dumbbellRow=:dumbbellRow, seatedRow=:seatedRow \
+                        name=:name, pushups=:pushups, plank=:plank, squat=:squat, benchPress=:benchPress, deadlift=:deadlift, pullUp=:pullUp, \
+                        legPress=:legPress, tricepPushDown=:tricepPushDown, dumbbellRow=:dumbbellRow, seatedRow=:seatedRow, visible=:visible  \
                         where id = " + QString::number(pid));
+        update.bindValue(":name", name);
         update.bindValue(":pushups", pushups);
         update.bindValue(":plank", plank);
         update.bindValue(":squat", squat);
@@ -103,6 +110,7 @@ void GymDialog::save()
         update.bindValue(":tricepPushDown", tricepPushDown);
         update.bindValue(":dumbbellRow", dumbbellRow);
         update.bindValue(":seatedRow", seatedRow);
+        update.bindValue(":visible", visible);
         if (!update.exec())
         {
             QMessageBox msg;

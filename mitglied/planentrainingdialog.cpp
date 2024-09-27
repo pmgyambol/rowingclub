@@ -10,7 +10,6 @@ PlanenTrainingDialog::PlanenTrainingDialog(QWidget *parent, int pid) :
     ui(new Ui::PlanenTrainingDialog),
     pid(pid)
 {
-    /*
     ui->setupUi(this);
     this->setWindowTitle("PlanenTrainingDialog editieren");
 
@@ -18,6 +17,19 @@ PlanenTrainingDialog::PlanenTrainingDialog(QWidget *parent, int pid) :
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
     QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
 
+    QObject::connect(ui->cardioButton, SIGNAL(clicked()), SLOT(cardio()));
+    QObject::connect(ui->gymButton,    SIGNAL(clicked()), SLOT(gym()));
+    QObject::connect(ui->boatButton,   SIGNAL(clicked()), SLOT(boat()));
+
+    ui->datumDateEdit->setDate(QDate::currentDate());
+
+    QSqlQuery queryvisiblegym("select name from gym where visible = 1");
+    while(queryvisiblegym.next())
+    {
+        ui->gymComboBox->addItem(queryvisiblegym.value(0).toString());
+        //typ_types.push_back(queryboattype.value(1).toString().toStdString());
+    }
+/*
     QObject::connect(ui->planenTrainingButton, SIGNAL(pressed()), SLOT(planen_training()));
 
     QSqlQuery querymembershiptype("select * from membershiptype");
@@ -170,6 +182,24 @@ void PlanenTrainingDialog::verlassen()
 {
     this->close();
 }
+
+
+void PlanenTrainingDialog::cardio()
+{
+
+}
+
+void PlanenTrainingDialog::gym()
+{
+
+}
+
+void PlanenTrainingDialog::boat()
+{
+
+}
+
+
 
 void PlanenTrainingDialog::planen_training()
 {

@@ -1,6 +1,3 @@
-#ifndef GYMWINDOW_H
-#define GYMWINDOW_H
-
 #include "gymwindow.h"
 #include "ui_gymwindow.h"
 
@@ -82,7 +79,7 @@ void GymWindow::verlassen()
 
 void GymWindow::sqlquery(bool filter)
 {
-    QString query = "select id, pushups, plank, squat, benchPress, deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow from gym";
+    QString query = "select id, name, pushups, plank, squat, benchPress, deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow, visible from gym";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -91,20 +88,23 @@ void GymWindow::sqlquery(bool filter)
     }
     sql->setQuery(query);
     sql->setHeaderData( 0, Qt::Horizontal, "id");
-    sql->setHeaderData( 1, Qt::Horizontal, "pushups");
-    sql->setHeaderData( 2, Qt::Horizontal, "plank");
-    sql->setHeaderData( 3, Qt::Horizontal, "squat");
-    sql->setHeaderData( 4, Qt::Horizontal, "benchPress");
-    sql->setHeaderData( 5, Qt::Horizontal, "deadlift");
-    sql->setHeaderData( 6, Qt::Horizontal, "pullUp");
-    sql->setHeaderData( 7, Qt::Horizontal, "legPress");
-    sql->setHeaderData( 8, Qt::Horizontal, "tricepPushDown");
-    sql->setHeaderData( 9, Qt::Horizontal, "dumbbellRow");
-    sql->setHeaderData(10, Qt::Horizontal, "seatedRow");
+    sql->setHeaderData( 1, Qt::Horizontal, "name");
+    sql->setHeaderData( 2, Qt::Horizontal, "pushups");
+    sql->setHeaderData( 3, Qt::Horizontal, "plank");
+    sql->setHeaderData( 4, Qt::Horizontal, "squat");
+    sql->setHeaderData( 5, Qt::Horizontal, "benchPress");
+    sql->setHeaderData( 6, Qt::Horizontal, "deadlift");
+    sql->setHeaderData( 7, Qt::Horizontal, "pullUp");
+    sql->setHeaderData( 8, Qt::Horizontal, "legPress");
+    sql->setHeaderData( 9, Qt::Horizontal, "tricepPushDown");
+    sql->setHeaderData(10, Qt::Horizontal, "dumbbellRow");
+    sql->setHeaderData(11, Qt::Horizontal, "seatedRow");
+    sql->setHeaderData(12, Qt::Horizontal, "visible");
+
+    ui->dbView->resizeColumnsToContents();
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);
     // Id unterdrücken
     ui->dbView->hideColumn(0);
 }
-#endif
