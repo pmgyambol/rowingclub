@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "mitboot/mitbootwindow.h"
+#include "cardio/cardiowindow.h"
 #include "gym/gymwindow.h"
 
 namespace Ui {

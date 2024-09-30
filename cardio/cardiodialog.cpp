@@ -21,13 +21,15 @@ CardioDialog::CardioDialog(QWidget *parent, int pid) :
     // CardioDialogen-Datensatz holen
     if (pid != 0)
     {
-        QSqlQuery queryone("select * from cardios where id = " + QString::number(pid));
+        QSqlQuery queryone("select * from cardio where id = " + QString::number(pid));
         if (queryone.next())
         {
-            ui->paddelErgometerCanuLineEdit->setText(queryone.value(1).toString());
-            ui->paddelErgometerKayakLineEdit->setText(queryone.value(2).toString());
-            ui->runningLineEdit->setText(queryone.value(3).toString());
-            ui->byciclingLineEdit->setText(queryone.value(4).toString());
+            ui->nameLineEdit->setText(queryone.value(1).toString());
+            ui->paddelErgometerCanuLineEdit->setText(queryone.value(2).toString());
+            ui->paddelErgometerKayakLineEdit->setText(queryone.value(3).toString());
+            ui->runningLineEdit->setText(queryone.value(4).toString());
+            ui->byciclingLineEdit->setText(queryone.value(5).toString());
+            ui->visibilityLineEdit->setText(queryone.value(6).toString());
         }
     }
     else
@@ -41,21 +43,26 @@ CardioDialog::~CardioDialog()
 
 void CardioDialog::save()
 {
+    QString name                 = ui->nameLineEdit->text();
     QString paddelErgometerCanu  = ui->paddelErgometerCanuLineEdit->text();
     QString paddelErgometerKayak = ui->paddelErgometerKayakLineEdit->text();
     QString running              = ui->runningLineEdit->text();
     QString bycicling            = ui->byciclingLineEdit->text();
+    QString visible              =  ui->visibilityLineEdit->text();
 
     if (pid == 0)
     {
         // Speichern in die Datenbank
         QSqlQuery insert;
-        insert.prepare("insert into cardios ( paddelErgometerCanu, paddelErgometerKayak, running, bycicling) values \
-                                            (:paddelErgometerCanu,:paddelErgometerKayak,:running,:bycicling)");
+        insert.prepare("insert into cardio ( name, paddelErgometerCanu, paddelErgometerKayak, running, bycicling, visible) values \
+                                          (:name,:paddelErgometerCanu,:paddelErgometerKayak,:running,:bycicling,:visible)");
+        insert.bindValue(":name", name);
         insert.bindValue(":paddelErgometerCanu",  paddelErgometerCanu);
         insert.bindValue(":paddelErgometerKayak", paddelErgometerKayak);
         insert.bindValue(":running",              running);
         insert.bindValue(":bycicling",            bycicling);
+        insert.bindValue(":visible",              visible);
+
         if (!insert.exec())
         {
             QMessageBox msg;
@@ -70,13 +77,16 @@ void CardioDialog::save()
         // SET column1 = value1, column2 = value2, ...
         // WHERE condition;
         QSqlQuery update;
-        update.prepare("update cardios set \
-                        paddelErgometerCanu=:paddelErgometerCanu, paddelErgometerKayak=:paddelErgometerKayak, running=:running, bycicling=:bycicling \
+        update.prepare("update cardio set \
+                        name=:name, paddelErgometerCanu=:paddelErgometerCanu, paddelErgometerKayak=:paddelErgometerKayak, \
+                        running=:running, bycicling=:bycicling, visible=:visible \
                         where id = " + QString::number(pid));
+        update.bindValue(":name", name);
         update.bindValue(":paddelErgometerCanu",  paddelErgometerCanu);
         update.bindValue(":paddelErgometerKayak", paddelErgometerKayak);
         update.bindValue(":running",              running);
         update.bindValue(":bycicling",            bycicling);
+        update.bindValue(":visible", visible);
 
         if (!update.exec())
         {
@@ -106,7 +116,7 @@ void CardioDialog::loeschen()
         if (msg.exec() == QMessageBox::Yes)
         {
             // Datensatz löschen
-            QSqlQuery delPerson("delete from cardios where id = " + QString::number(pid));
+            QSqlQuery delPerson("delete from cardio where id = " + QString::number(pid));
             verlassen();
         }
     }

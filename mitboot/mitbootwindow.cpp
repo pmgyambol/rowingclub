@@ -1,35 +1,38 @@
-#include "trainingwindow.h"
-#include "ui_trainingwindow.h"
+#include "mitbootwindow.h"
+#include "ui_mitbootwindow.h"
 
-TrainingWindow::TrainingWindow(QWidget *parent)
+MitbootWindow::MitbootWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::TrainingWindow)
+    , ui(new Ui::MitbootWindow)
 {
     ui->setupUi(this);
     this->setWindowTitle("Trainigs Program");
 
     QObject::connect(ui->newButton, SIGNAL(clicked()), SLOT(neuerKontakt()));
-    // QObject::connect(ui->plzButton, SIGNAL(clicked()), SLOT(plzVerwaltung()));
     QObject::connect(ui->searchButton, SIGNAL(clicked()), SLOT(suchen()));
     QObject::connect(ui->actionNeuer_Kontakt, SIGNAL(triggered()), SLOT(neuerKontakt()));
     QObject::connect(ui->actionVerwaltung_Postleitzahlen, SIGNAL(triggered()), SLOT(plzVerwaltung()));
     QObject::connect(ui->actionVerlassen, SIGNAL(triggered()), SLOT(verlassen()));
     QObject::connect(ui->dbView, SIGNAL(clicked(QModelIndex)), SLOT(editKontakt(QModelIndex)));
 
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->dbView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+
     sql = new QSqlQueryModel();
     // DB-Anzeigen
     sqlquery(false);
 }
 
-TrainingWindow::~TrainingWindow()
+MitbootWindow::~MitbootWindow()
 {
     delete ui;
     delete sql;
 }
 
-void TrainingWindow::neuerKontakt()
+void MitbootWindow::neuerKontakt()
 {
-    TrainingDialog perwindow;
+    MitbootDialog perwindow;
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -38,19 +41,19 @@ void TrainingWindow::neuerKontakt()
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der TrainingDialogenliste
+    // Update der MitbootDialogenliste
     sqlquery(false);
 }
 
-void TrainingWindow::editKontakt(QModelIndex index)
+void MitbootWindow::editKontakt(QModelIndex index)
 {
     // Zeile in der Tableview, auf die geklickt wurde
     int row = index.row();
     // wir holen mit der Zeile die versteckte PId heraus
     int pid = ui->dbView->model()->index(row, 0).data().toInt();
 
-    // TrainingDialogen - Window starten
-    TrainingDialog perwindow(this, pid);
+    // MitbootDialogen - Window starten
+    MitbootDialog perwindow(this, pid);
     // Modales Window:
     // Es ist das oberste Window
     // alle anderen Windows sind nicht bedienbar
@@ -59,28 +62,28 @@ void TrainingWindow::editKontakt(QModelIndex index)
     perwindow.exec();
 
     // hier wurde das Window wieder geschlossen
-    // Update der TrainingDialogenliste
+    // Update der MitbootDialogenliste
     sqlquery(false);
 }
 
-void TrainingWindow::plzVerwaltung()
+void MitbootWindow::plzVerwaltung()
 {
 
 }
 
-void TrainingWindow::suchen()
+void MitbootWindow::suchen()
 {
     sqlquery(true);
 }
 
-void TrainingWindow::verlassen()
+void MitbootWindow::verlassen()
 {
     this->close();
 }
 
-void TrainingWindow::sqlquery(bool filter)
+void MitbootWindow::sqlquery(bool filter)
 {
-    QString query = "select id,boat,gym,cardio from training";
+    QString query = "select id, name, instruction, visible from mitboot";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -89,12 +92,15 @@ void TrainingWindow::sqlquery(bool filter)
     }
     sql->setQuery(query);
     sql->setHeaderData(0, Qt::Horizontal, "id");
-    sql->setHeaderData(1, Qt::Horizontal, "boat");
-    sql->setHeaderData(2, Qt::Horizontal, "gym");
-    sql->setHeaderData(3, Qt::Horizontal, "cardio");
+    sql->setHeaderData(1, Qt::Horizontal, "name");
+    sql->setHeaderData(2, Qt::Horizontal, "instruction");
+    sql->setHeaderData(3, Qt::Horizontal, "visible");
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);
     // Id unterdrücken
     ui->dbView->hideColumn(0);
+
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }

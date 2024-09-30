@@ -40,7 +40,8 @@ void MainWindow::createActions()
     connect(ui->actionListBoat,     SIGNAL(triggered()), this, SLOT(listBoat()));
 
     connect(ui->actionListGym,      SIGNAL(triggered()), this, SLOT(listGym()));
-    connect(ui->actionListCardios,  SIGNAL(triggered()), this, SLOT(listCardio()));
+    connect(ui->actionListCardio,   SIGNAL(triggered()), this, SLOT(listCardio()));
+    connect(ui->actionListMitboot,  SIGNAL(triggered()), this, SLOT(listMitboot()));
 
     connect(ui->actionListIncome,   SIGNAL(triggered()), this, SLOT(listEinkommen()));
     connect(ui->actionListExpense,  SIGNAL(triggered()), this, SLOT(listAufwand()));
@@ -99,6 +100,14 @@ void MainWindow::listCardio()
 {
     CardioWindow *cardioWindow = new CardioWindow();
     QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(cardioWindow);
+    subWindow->show();
+}
+
+
+void MainWindow::listMitboot()
+{
+    MitbootWindow *mitbootWindow = new MitbootWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(mitbootWindow);
     subWindow->show();
 }
 

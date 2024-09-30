@@ -18,6 +18,10 @@ AufwandWindow::AufwandWindow(QWidget *parent)
     QObject::connect(ui->actionVerlassen, SIGNAL(triggered()), SLOT(verlassen()));
     QObject::connect(ui->dbView, SIGNAL(clicked(QModelIndex)), SLOT(editKontakt(QModelIndex)));
 
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->dbView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+
     sql = new QSqlQueryModel();
     // DB-Anzeigen
     sqlquery(false);
@@ -105,5 +109,8 @@ void AufwandWindow::sqlquery(bool filter)
     ui->dbView->setModel(sql);
     // Id unterdrücken
     ui->dbView->hideColumn(0);
+
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 #endif

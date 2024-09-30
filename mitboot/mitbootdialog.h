@@ -1,5 +1,5 @@
-#ifndef TrainingDialog_H
-#define TrainingDialog_H
+#ifndef MITBOOTDIALOG_H
+#define MITBOOTDIALOG_H
 
 #include <QDebug>
 #include <QDialog>
@@ -7,16 +7,16 @@
 #include <QMessageBox>
 
 namespace Ui {
-class TrainingDialog;
+class MitbootDialog;
 }
 
-class TrainingDialog : public QDialog
+class MitbootDialog : public QDialog
 {
     Q_OBJECT
 
 public:
-    explicit TrainingDialog(QWidget *parent = nullptr, int pid = 0);
-    ~TrainingDialog();
+    explicit MitbootDialog(QWidget *parent = nullptr, int pid = 0);
+    ~MitbootDialog();
 
 public slots:
     void save();
@@ -24,9 +24,8 @@ public slots:
     void verlassen();
 
 private:
-    Ui::TrainingDialog *ui;
+    Ui::MitbootDialog *ui;
     // Primary Key für die Boaten Tabelle
     int pid;
 };
-
 #endif

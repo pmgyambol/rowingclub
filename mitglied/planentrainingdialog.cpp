@@ -27,39 +27,30 @@ PlanenTrainingDialog::PlanenTrainingDialog(QWidget *parent, int pid) :
     while(queryvisiblegym.next())
     {
         ui->gymComboBox->addItem(queryvisiblegym.value(0).toString());
-        //typ_types.push_back(queryboattype.value(1).toString().toStdString());
     }
-/*
-    QObject::connect(ui->planenTrainingButton, SIGNAL(pressed()), SLOT(planen_training()));
 
-    QSqlQuery querymembershiptype("select * from membershiptype");
-    while(querymembershiptype.next())
+    QSqlQuery queryvisiblecardio("select name from cardio where visible = 1");
+    while(queryvisiblecardio.next())
     {
-        ui->typComboBox->addItem(querymembershiptype.value(1).toString());
-        typ_types.push_back(querymembershiptype.value(1).toString().toStdString());
+        ui->cardioComboBox->addItem(queryvisiblecardio.value(0).toString());
     }
 
-    QSqlQuery querysextype("select * from sextype");
-    while(querysextype.next())
+    QSqlQuery queryvisibleboat("select name from mitboot where visible = 1");
+    while(queryvisibleboat.next())
     {
-        ui->sexComboBox->addItem(querysextype.value(1).toString());
-        sex_types.push_back(querysextype.value(1).toString().toStdString());
+        ui->boatComboBox->addItem(queryvisibleboat.value(0).toString());
     }
 
-    QSqlQuery querynationalitytype("select * from nationalitytype");
-    while(querynationalitytype.next())
-    {
-        ui->nationalityComboBox->addItem(querynationalitytype.value(1).toString());
-        nationality_types.push_back(querynationalitytype.value(1).toString().toStdString());
-    }
-
-    // PlanenTrainingDialogen-Datensatz holen
     if (pid != 0)
     {
-        QSqlQuery queryone("select * from mitglied where id = " + QString::number(pid));
+
+        QSqlQuery queryone("select * from planentraining where fk = " + QString::number(pid));
         if (queryone.next())
         {
-            // Daten in die Oberfläche schreiben
+            ui->coachTextEdit->setText(queryone.value(5).toString());
+            ui->mitgliedTextEdit->setText(queryone.value(6).toString());
+            ui->datumDateEdit->setDate(queryone.value(7).toDate());
+/*            
             ui->firstnameLineEdit->setText(queryone.value(1).toString());
             ui->lastnameLineEdit->setText(queryone.value(2).toString());
             ui->sexComboBox->setCurrentIndex(ui->sexComboBox->findText(queryone.value(3).toString(),Qt::MatchContains));
@@ -69,11 +60,11 @@ PlanenTrainingDialog::PlanenTrainingDialog(QWidget *parent, int pid) :
             ui->addressLineEdit->setText(queryone.value(8).toString());
             ui->emailLineEdit->setText(queryone.value(9).toString());
             ui->typComboBox->setCurrentIndex(ui->typComboBox->findText(queryone.value(10).toString(),Qt::MatchContains));
+*/
         }
     }
     else
         ui->delButton->setDisabled(true);
-*/
 }
 
 PlanenTrainingDialog::~PlanenTrainingDialog()
@@ -83,77 +74,28 @@ PlanenTrainingDialog::~PlanenTrainingDialog()
 
 void PlanenTrainingDialog::save()
 {
-/*
-    QString fname = ui->firstnameLineEdit->text();
-    QString lname = ui->lastnameLineEdit->text();
-    QString adr   = ui->addressLineEdit->text();
-    QString email = ui->emailLineEdit->text();
-    if (fname.isEmpty() || adr.isEmpty()) return;
+    QSqlQuery insert;
+    insert.prepare("insert into planentraining( fk, cardio, gym, mitboot, coach, mitglied, datum) values \
+                                              (:fk,:cardio,:gym,:mitboot,:coach,:mitglied,:datum)");
 
-    string birthdate  = ui->birthdayDateEdit->date().toString("yyyy-MM-dd").toStdString();
-    string membrdate  = ui->membersinceDateEdit->date().toString("yyyy-MM-dd").toStdString();
-    // Combobox abfragen
-    int type_id_typ         = ui->typComboBox->currentIndex();
-    int type_id_sex         = ui->sexComboBox->currentIndex();
-    int type_id_nationality = ui->nationalityComboBox->currentIndex();
+    insert.bindValue(":fk",       pid);
+    insert.bindValue(":datum",    ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString().c_str());
+    insert.bindValue(":gym",      ui->   gymComboBox->currentText());
+    insert.bindValue(":cardio",   ui->cardioComboBox->currentText());
+    insert.bindValue(":mitboot",  ui->  boatComboBox->currentText());
+    insert.bindValue(":coach",    ui->coachTextEdit   ->toPlainText().toStdString().c_str());
+    insert.bindValue(":mitglied", ui->mitgliedTextEdit->toPlainText().toStdString().c_str());
 
-    if (pid == 0)
+    if (!insert.exec())
     {
-        // Speichern in die Datenbank
-        QSqlQuery insert;
-        insert.prepare("insert into mitglied (firstname, lastname, sex, birthdate, nationality, membersince, address, email, typ) values \
-                                            (:firstname,:lastname,:sex,:birthdate,:nationality,:membersince,:address,:email,:typ)");
-        // insert.prepare("insert into Personen (PName,PAdr,PTelnr,PPlzFK) values (:name,:adr,:telnr,:fk)");
-        insert.bindValue(":firstname", fname);
-        insert.bindValue(":lastname", lname);
-        insert.bindValue(":address", adr);
-        insert.bindValue(":email", email);
-        insert.bindValue(":birthdate",      birthdate.c_str());
-        insert.bindValue(":membersicedate", membrdate.c_str());
-        insert.bindValue(        ":typ",        typ_types[type_id_typ        ].c_str());
-        insert.bindValue(        ":sex",        sex_types[type_id_sex        ].c_str());
-        insert.bindValue(":nationality",nationality_types[type_id_nationality].c_str());
-        if (!insert.exec())
-        {
-            QMessageBox msg;
-            msg.setText("Fehler beim Speichern!");
-            msg.setWindowTitle("Fehler");
-            msg.addButton("Ok", QMessageBox::YesRole);
-            msg.exec();
-        }
+        QMessageBox msg;
+        msg.setText("Fehler beim Speichern!");
+        msg.setWindowTitle("Fehler");
+        msg.addButton("Ok", QMessageBox::YesRole);
+        msg.exec();
     }
-    else {
-        // UPDATE table_name
-        // SET column1 = value1, column2 = value2, ...
-        // WHERE condition;
-        QSqlQuery update;
-        update.prepare("update mitglied set \
-                        firstname=:firstname, lastname=:lastname,sex=:sex,birthdate=:birthdate, \
-                        nationality=:nationality,membersince=:membersince,address=:address,email=:email,typ=:typ \
-                        where id = " + QString::number(pid));
-        update.bindValue(":firstname", fname);
-        update.bindValue(":lastname", lname);
-        update.bindValue(":address", adr);
-        update.bindValue(":email", email);
-        update.bindValue(":birthdate",      birthdate.c_str());
-        update.bindValue(":membersicedate", membrdate.c_str());
-        update.bindValue(        ":typ",        typ_types[type_id_typ        ].c_str());
-        update.bindValue(        ":sex",        sex_types[type_id_sex        ].c_str());
-        update.bindValue(":nationality",nationality_types[type_id_nationality].c_str());
 
-        if (!update.exec())
-        {
-            QMessageBox msg;
-            msg.setText("Fehler beim Speichern!");
-            msg.setWindowTitle("Fehler");
-            msg.addButton("Ok", QMessageBox::YesRole);
-            msg.exec();
-        }
-        qDebug() << update.lastQuery();
-    }
-    // Window schließen
     verlassen();
-*/
 }
 
 void PlanenTrainingDialog::loeschen()
@@ -186,19 +128,76 @@ void PlanenTrainingDialog::verlassen()
 
 void PlanenTrainingDialog::cardio()
 {
+    QString exe = "select id from cardio where name = '" + ui->cardioComboBox->currentText() + "'";
 
+    QSqlQuery q(exe);
+    q.next();
+    int id = q.value(0).toInt();
+
+    qDebug() << "Choosen cardio: " << id << " " << exe << "\n";
+
+    // GymDialogen - Window starten
+    CardioDialog perwindow(this, id);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
+
+    // hier wurde das Window wieder geschlossen
+    // Update der GymDialogenliste
+    //sqlquery(false);
 }
 
 void PlanenTrainingDialog::gym()
 {
+    QString exe = "select id from gym where name = '" + ui->gymComboBox->currentText() + "'";
 
+    QSqlQuery q(exe);
+    q.next();
+    int id = q.value(0).toInt();
+
+    qDebug() << "Choosen gym: " << id << " " << exe << "\n";
+
+    // GymDialogen - Window starten
+    GymDialog perwindow(this, id);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
+
+    // hier wurde das Window wieder geschlossen
+    // Update der GymDialogenliste
+    //sqlquery(false);
 }
+
 
 void PlanenTrainingDialog::boat()
 {
+    QString exe = "select id from mitboot where name = '" + ui->boatComboBox->currentText() + "'";
 
+    QSqlQuery q(exe);
+    q.next();
+    int id = q.value(0).toInt();
+
+    qDebug() << "Choosen boat: " << id << " " << exe << "\n";
+
+    // GymDialogen - Window starten
+    MitbootDialog perwindow(this, id);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
+
+    // hier wurde das Window wieder geschlossen
+    // Update der GymDialogenliste
+    //sqlquery(false);
 }
-
 
 
 void PlanenTrainingDialog::planen_training()

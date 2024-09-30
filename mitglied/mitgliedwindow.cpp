@@ -19,6 +19,10 @@ MitgliedWindow::MitgliedWindow(QWidget *parent)
 
     QObject::connect(ui->dbView, SIGNAL(clicked(const QModelIndex &)), this, SLOT(onTableClicked(const QModelIndex &)));
 
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->dbView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+
     sql = new QSqlQueryModel();
     // DB-Anzeigen
     sqlquery(false);
@@ -117,5 +121,8 @@ void MitgliedWindow::sqlquery(bool filter)
     ui->dbView->setModel(sql);
     // Id unterdrücken
     ui->dbView->hideColumn(0);
+
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 }
 

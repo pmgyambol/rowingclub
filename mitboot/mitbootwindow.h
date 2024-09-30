@@ -1,18 +1,22 @@
+#ifndef MITBOOTWINDOW_H
+#define MITBOOTWINDOW_H
+
 #include <QMainWindow>
 #include <QSqlQueryModel>
-#include "trainingdialog.h"
+
+#include "mitbootdialog.h"
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class TrainingWindow; }
+namespace Ui { class MitbootWindow; }
 QT_END_NAMESPACE
 
-class TrainingWindow : public QMainWindow
+class MitbootWindow : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    TrainingWindow(QWidget *parent = nullptr);
-    ~TrainingWindow();
+    MitbootWindow(QWidget *parent = nullptr);
+    ~MitbootWindow();
 
 public slots:
     void neuerKontakt();
@@ -22,7 +26,8 @@ public slots:
     void verlassen();
 
 private:
-    Ui::TrainingWindow *ui;
+    Ui::MitbootWindow *ui;
     QSqlQueryModel *sql;
     void sqlquery(bool filter);
 };
+#endif

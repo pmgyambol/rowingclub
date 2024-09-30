@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QDesktopWidget>
 #include <cstdlib>
 #include <iostream>
 
@@ -17,7 +18,13 @@ int main(int argc, char *argv[])
     else {
       if (!createConnection(mydbvar)) return EXIT_FAILURE;
     }
+
+    QDesktopWidget dw;
+    int x=dw.width() *0.75;
+    int y=dw.height()*0.75;
+
     MainWindow w;
+    w.resize(x,y);
     w.show();
     return a.exec();
 }

@@ -20,6 +20,8 @@ SOURCES += \
     gym/gymdialog.cpp \
     cardio/cardiowindow.cpp \
     cardio/cardiodialog.cpp \
+    mitboot/mitbootwindow.cpp \
+    mitboot/mitbootdialog.cpp \
     einkommen/einkommenwindow.cpp \
     einkommen/einkommendialog.cpp \
     aufwand/aufwandwindow.cpp \
@@ -38,6 +40,8 @@ HEADERS += \
     gym/gymdialog.h \
     cardio/cardiowindow.h \
     cardio/cardiodialog.h \
+    mitboot/mitbootwindow.h \
+    mitboot/mitbootdialog.h \
     einkommen/einkommenwindow.h \
     einkommen/einkommendialog.h \
     aufwand/aufwandwindow.h \
@@ -55,6 +59,8 @@ FORMS += \
     gym/gymdialog.ui \
     cardio/cardiowindow.ui \
     cardio/cardiodialog.ui \
+    mitboot/mitbootwindow.ui \
+    mitboot/mitbootdialog.ui \
     einkommen/einkommenwindow.ui \
     einkommen/einkommendialog.ui \
     aufwand/aufwandwindow.ui \

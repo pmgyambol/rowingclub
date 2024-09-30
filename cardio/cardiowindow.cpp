@@ -15,6 +15,10 @@ CardioWindow::CardioWindow(QWidget *parent)
     QObject::connect(ui->actionVerlassen, SIGNAL(triggered()), SLOT(verlassen()));
     QObject::connect(ui->dbView, SIGNAL(clicked(QModelIndex)), SLOT(editKontakt(QModelIndex)));
 
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->dbView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
+
     sql = new QSqlQueryModel();
     // DB-Anzeigen
     sqlquery(false);
@@ -79,7 +83,7 @@ void CardioWindow::verlassen()
 
 void CardioWindow::sqlquery(bool filter)
 {
-    QString query = "select id,paddelErgometerCanu,paddelErgometerKayak,running,bycicling from cardios";
+    QString query = "select id,name,paddelErgometerCanu,paddelErgometerKayak,running,bycicling,visible from cardio";
     if (filter)
     {
         QString name = ui->searchTextEdit->text();
@@ -88,10 +92,15 @@ void CardioWindow::sqlquery(bool filter)
     }
     sql->setQuery(query);
     sql->setHeaderData(0, Qt::Horizontal, "id");
-    sql->setHeaderData(1, Qt::Horizontal, "paddelErgometerCanu");
-    sql->setHeaderData(2, Qt::Horizontal, "paddelErgometerKayak");
-    sql->setHeaderData(3, Qt::Horizontal, "running");
-    sql->setHeaderData(4, Qt::Horizontal, "bycicling");
+    sql->setHeaderData(1, Qt::Horizontal, "name");
+    sql->setHeaderData(2, Qt::Horizontal, "paddelErgometerCanu");
+    sql->setHeaderData(3, Qt::Horizontal, "paddelErgometerKayak");
+    sql->setHeaderData(4, Qt::Horizontal, "running");
+    sql->setHeaderData(5, Qt::Horizontal, "bycicling");
+    sql->setHeaderData(6, Qt::Horizontal, "visible");
+
+    ui->dbView->resizeColumnsToContents();
+    ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
     // Verbinden des Models mit der View
     ui->dbView->setModel(sql);

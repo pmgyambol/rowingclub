@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include <QDesktopWidget>
 
 #include "mitglied/mitgliedwindow.h"
 #include "mitglied/mitglieddialog.h"
@@ -15,6 +16,9 @@
 
 #include "cardio/cardiowindow.h"
 #include "cardio/cardiodialog.h"
+
+#include "mitboot/mitbootwindow.h"
+#include "mitboot/mitbootdialog.h"
 
 #include "einkommen/einkommenwindow.h"
 #include "einkommen/einkommendialog.h"
@@ -47,6 +51,7 @@ public slots:
     void listBoat();
     void listGym();
     void listCardio();
+    void listMitboot();
     void listEinkommen();
     void listAufwand();
     void showGleichgewicht();

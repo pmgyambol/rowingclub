@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS mitglied;
 DROP TABLE IF EXISTS boats;
 DROP TABLE IF EXISTS gym;
-DROP TABLE IF EXISTS cardios;
-DROP TABLE IF EXISTS tarining;
+DROP TABLE IF EXISTS cardio;
+DROP TABLE IF EXISTS mitboot;
 DROP TABLE IF EXISTS еinkommen;
 DROP TABLE IF EXISTS аufwand;
 
@@ -60,17 +60,17 @@ CREATE TABLE if not exists 'boats' (
 
 /* ----------------------------------- trainieren ----------------------------------- */
 
-CREATE TABLE if not exists 'training' (
-  id                     INTEGER,
-  boat 		               INTEGER default 0,
-  gym		                 INTEGER default 0,
-  cardio	               INTEGER default 0,
+CREATE TABLE if not exists 'mitboot' (
+  'id'                     INTEGER,
+  'name'                   TEXT UNIQUE NOT NULL,
+  'instruction'            TEXT NOT NULL,
+  'visible'                INTEGER default 1,
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
 CREATE TABLE if not exists 'gym' (
   'id'             	       INTEGER,
-  'name'                   TEXT,
+  'name'                   TEXT UNIQUE NOT NULL,
   'pushups'        	       INTEGER default 0,
   'plank' 	     	         INTEGER default 0,
   'squat' 	     	         INTEGER default 0,
@@ -85,14 +85,30 @@ CREATE TABLE if not exists 'gym' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-CREATE TABLE if not exists 'cardios' (
-  id                     INTEGER,
-  paddelErgometerCanu    INTEGER default 0,
-  paddelErgometerKayak   INTEGER default 0,
-  running                INTEGER default 0,
-  bycicling              INTEGER default 0,
+CREATE TABLE if not exists 'cardio' (
+  'id'                     INTEGER,
+  'name'                   TEXT UNIQUE NOT NULL,
+  'paddelErgometerCanu'    INTEGER default 0,
+  'paddelErgometerKayak'   INTEGER default 0,
+  'running'                INTEGER default 0,
+  'bycicling'              INTEGER default 0,
+  'visible'                INTEGER default 1,
   PRIMARY KEY('id' AUTOINCREMENT)
 );
+
+CREATE TABLE if not exists 'planentraining' (
+  'id'                     INTEGER,
+  'fk'                     INTEGER NOT NULL,
+  'cardio'                 TEXT    NOT NULL,
+  'gym'                    TEXT    NOT NULL,
+  'mitboot'                TEXT    NOT NULL,
+  'coach'                  TEXT,
+  'mitglied'               TEXT,
+  'datum'                  DATE,
+  FOREIGN KEY('fk') REFERENCES mitglied('id'),
+  PRIMARY KEY('id' AUTOINCREMENT)
+);
+
 
 /* ----------------------------------- Finanzen ----------------------------------- */
 
@@ -202,9 +218,31 @@ values
 (11500,'2005-07-20','para-cayak','fabric','private'),
 (14000,'2012-10-10','canu',      'fabric','private');
 
-insert into gym      (pushups,plank,squat,benchPress,deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow) values (10,20,30,40,50,60,70,80,90,1);
-insert into cardios  (paddelErgometerCanu, paddelErgometerKayak, running, bycicling) values (10,10,15,30);
-insert into training (boat,cardio) values (1,2), (1,4);
+insert into gym      ('name', 'pushups', 'plank', 'squat', 'benchPress', 'deadlift', 'pullUp', 'legPress', 'tricepPushDown', 'dumbbellRow', 'seatedRow') 
+values
+('no work',null,null,null,null,null,null,null,null,null,null),
+('stoyan delchev',10,20,30,40,50,60,70,80,90,100),
+('yordan yovchev',90,80,70,60,50,40,30,20,10,125),
+('basic exercise', 5,10,10, 2, 5, 1, 5,20,10, 20);
+
+insert into cardio   ('name', 'paddelErgometerCanu', 'paddelErgometerKayak', 'running', 'bycicling')
+values
+('no work',null,null,null,null),
+('superman',100,100,150,300),
+('steroid1',205, 10, 15,600),
+('steroid2', 10, 10,500,800);
+
+insert into mitboot  ('name', 'instruction')
+values
+('no work', 'no work'),
+('crazyrow','row until get tired'),
+('momcall', 'wait until mom call you that dinner is ready');
+
+insert into planentraining (fk, cardio, gym, mitboot, coach, mitglied, datum)
+values
+(1,"stoyan delchev","no work", "no work", "some text", "strong man + lifting", "2024-09-01"),
+(2,"stoyan delchev","no work", "no work", "some text", "strong man + lifting", "2024-09-01"),
+(3,"stoyan delchev","no work", "no work", "some text", "strong man + lifting", "2024-09-01");
 
 insert into einkommen (mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit)
 values

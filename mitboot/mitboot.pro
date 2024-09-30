@@ -10,17 +10,17 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    trainingwindow.cpp \
-    trainingdialog.cpp
+    mitbootwindow.cpp \
+    mitbootdialog.cpp
 
 HEADERS += \
     ../db/connection.h \
-    trainingwindow.h \
-    trainingdialog.h
+    mitbootwindow.h \
+    mitbootdialog.h
 
 FORMS += \
-    trainingwindow.ui \
-    trainingdialog.ui
+    mitbootwindow.ui \
+    mitbootdialog.ui
 
 OBJECTS_DIR = tmp
 MOC_DIR     = tmp
