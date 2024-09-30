@@ -96,7 +96,7 @@ CREATE TABLE if not exists 'cardio' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
-CREATE TABLE if not exists 'planentraining' (
+CREATE TABLE if not exists 'training' (
   'id'                     INTEGER,
   'fk'                     INTEGER NOT NULL,
   'cardio'                 TEXT    NOT NULL,
@@ -205,8 +205,10 @@ insert into besitztype (type) values ('private'), ('sponsored'), ('club');
 
 insert into mitglied (firstname,lastname,sex,birthdate,nationality,membersince,address,email,typ)
 values
-('Robert','Mustermann','male',  '2004-03-04','AT','2020-03-04','Wien, Krauserstraße 38, 1050','robert.mustermann@email.mail', 'amateur' ),
-('Max',   'Mustermann','female','2002-05-08','AT','2022-03-04','Graz Krauserstraße 38 1050',  'max.mustermann@email.mail',    'athlete' );
+('Robert','Mustermann','male',  '2004-03-04','AT','2020-03-04','Wien, Krauserstraße 38, 1050','robert.mustermann@email.mail', 'amateur'),
+('Max',   'Mustermann','female','2002-05-08','AT','2022-11-12','Wien, Krauserstraße 48, 1050',   'max.mustermann@email.mail', 'athlete'),
+('Metio', 'Man',       'male',  '1990-05-08','AT','2021-02-11','Graz, Krauserstraße 58, 1050',            'matio@email.mail',   'guest'),
+('Max',   'Maria',     'female','1982-05-08','AT','2024-09-23','Graz, Krauserstraße 68, 1050',            'maria@email.mail',   'guest');
 
 insert into boats (price,herstelldatum,typ,material,besitz) 
 values
@@ -238,11 +240,11 @@ values
 ('crazyrow','row until get tired'),
 ('momcall', 'wait until mom call you that dinner is ready');
 
-insert into planentraining (fk, cardio, gym, mitboot, coach, mitglied, datum)
+insert into training (fk, cardio, gym, mitboot, coach, mitglied, datum)
 values
-(1,"stoyan delchev","no work", "no work", "some text", "strong man + lifting", "2024-09-01"),
-(2,"stoyan delchev","no work", "no work", "some text", "strong man + lifting", "2024-09-01"),
-(3,"stoyan delchev","no work", "no work", "some text", "strong man + lifting", "2024-09-01");
+(1,"stoyan delchev","steroid1", "no work",  "some text",        "strong man + lifting", "2024-09-01"),
+(2,"basic exercise","superman", "crazyrow", "something",        "running all day long", "2024-05-12"),
+(3,"stoyan delchev","no work",  "momcall",  "do what you like", "strong man + lifting", "2024-06-22");
 
 insert into einkommen (mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit)
 values

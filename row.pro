@@ -13,7 +13,6 @@ SOURCES += \
     mainwin/mainwindow.cpp \
     mitglied/mitgliedwindow.cpp \
     mitglied/mitglieddialog.cpp \
-    mitglied/planentrainingdialog.cpp \
     boat/boatwindow.cpp \
     boat/boatdialog.cpp \
     gym/gymwindow.cpp \
@@ -22,6 +21,8 @@ SOURCES += \
     cardio/cardiodialog.cpp \
     mitboot/mitbootwindow.cpp \
     mitboot/mitbootdialog.cpp \
+    training/trainingwindow.cpp \
+    training/trainingdialog.cpp \
     einkommen/einkommenwindow.cpp \
     einkommen/einkommendialog.cpp \
     aufwand/aufwandwindow.cpp \
@@ -33,7 +34,6 @@ HEADERS += \
     mainwin/mainwindow.h \
     mitglied/mitgliedwindow.h \
     mitglied/mitglieddialog.h \
-    mitglied/planentrainingdialog.h \
     boat/boatwindow.h \
     boat/boatdialog.h \
     gym/gymwindow.h \
@@ -42,6 +42,8 @@ HEADERS += \
     cardio/cardiodialog.h \
     mitboot/mitbootwindow.h \
     mitboot/mitbootdialog.h \
+    training/trainingwindow.h \
+    training/trainingdialog.h \
     einkommen/einkommenwindow.h \
     einkommen/einkommendialog.h \
     aufwand/aufwandwindow.h \
@@ -52,7 +54,6 @@ FORMS += \
     mainwin/mainwindow.ui \
     mitglied/mitgliedwindow.ui \
     mitglied/mitglieddialog.ui \
-    mitglied/planentrainingdialog.ui \
     boat/boatwindow.ui \
     boat/boatdialog.ui \
     gym/gymwindow.ui \
@@ -61,6 +62,8 @@ FORMS += \
     cardio/cardiodialog.ui \
     mitboot/mitbootwindow.ui \
     mitboot/mitbootdialog.ui \
+    training/trainingwindow.ui \
+    training/trainingdialog.ui \
     einkommen/einkommenwindow.ui \
     einkommen/einkommendialog.ui \
     aufwand/aufwandwindow.ui \

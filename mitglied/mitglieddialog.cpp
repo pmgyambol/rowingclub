@@ -17,17 +17,6 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
     QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
 
-    QObject::connect(ui->planenTrainingButton, SIGNAL(pressed()), SLOT(planen_training()));
-/*
-    Dialog2 * dialog2 = new Dialog2(this);
-    Dialog1 * dialog1 = new Dialog1(dialog2, this);
-    // QPushButton* pushButton = new QPushButton("show dialog1", this);
-    // MitgliedDialog *md = new MitgliedDialog(pid);
-    //MitgliedDialog perwindow(this, pid);
-    connect(ui->planenTrainingButton, &QPushButton::pressed, this, [=](){ dialog1->show(); });
-    //connect(ui->planenTrainingButton, &QPushButton::pressed, this, [=](){ perwindow->show(); });
-*/
-
     QSqlQuery querymembershiptype("select * from membershiptype");
     while(querymembershiptype.next())
     {
@@ -70,7 +59,6 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
     else
     {
         ui->delButton->setDisabled(true);
-        ui->planenTrainingButton->setDisabled(true);
     }
 }
 
@@ -175,16 +163,4 @@ void MitgliedDialog::loeschen()
 void MitgliedDialog::verlassen()
 {
     this->close();
-}
-
-void MitgliedDialog::planen_training()
-{
-    PlanenTrainingDialog perwindow(this, pid);
-    // Modales Window:
-    // Es ist das oberste Window
-    // alle anderen Windows sind nicht bedienbar
-    perwindow.setModal(true);
-    perwindow.show();
-    perwindow.exec();
-    //sqlquery(false);
 }

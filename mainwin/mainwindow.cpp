@@ -39,6 +39,7 @@ void MainWindow::createActions()
     connect(ui->actionAddBoat,      SIGNAL(triggered()), this, SLOT(addBoat()));
     connect(ui->actionListBoat,     SIGNAL(triggered()), this, SLOT(listBoat()));
 
+    connect(ui->actionTraining,     SIGNAL(triggered()), this, SLOT(training()));
     connect(ui->actionListGym,      SIGNAL(triggered()), this, SLOT(listGym()));
     connect(ui->actionListCardio,   SIGNAL(triggered()), this, SLOT(listCardio()));
     connect(ui->actionListMitboot,  SIGNAL(triggered()), this, SLOT(listMitboot()));
@@ -108,6 +109,14 @@ void MainWindow::listMitboot()
 {
     MitbootWindow *mitbootWindow = new MitbootWindow();
     QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(mitbootWindow);
+    subWindow->show();
+}
+
+
+void MainWindow::training()
+{
+    TrainingWindow *trainingWindow = new TrainingWindow();
+    QMdiSubWindow *subWindow = ui->mdiArea->addSubWindow(trainingWindow);
     subWindow->show();
 }
 

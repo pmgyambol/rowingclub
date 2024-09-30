@@ -20,6 +20,9 @@
 #include "mitboot/mitbootwindow.h"
 #include "mitboot/mitbootdialog.h"
 
+#include "training/trainingwindow.h"
+#include "training/trainingdialog.h"
+
 #include "einkommen/einkommenwindow.h"
 #include "einkommen/einkommendialog.h"
 
@@ -49,6 +52,7 @@ public slots:
     void listMitglied();
     void addBoat();
     void listBoat();
+    void training();
     void listGym();
     void listCardio();
     void listMitboot();

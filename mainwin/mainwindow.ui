@@ -52,6 +52,7 @@
     <property name="title">
      <string>Training</string>
     </property>
+    <addaction name="actionTraining"/>
     <addaction name="actionListMitboot"/>
     <addaction name="actionListCardio"/>
     <addaction name="actionListGym"/>
@@ -156,6 +157,14 @@
    </property>
    <property name="text">
     <string>Expence</string>
+   </property>
+  </action>
+  <action name="actionTraining">
+   <property name="icon">
+    <iconset theme="face-angel"/>
+   </property>
+   <property name="text">
+    <string>Training</string>
    </property>
   </action>
  </widget>

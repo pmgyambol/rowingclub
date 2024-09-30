@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>464</width>
-    <height>390</height>
+    <height>328</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -53,6 +53,9 @@
        </property>
       </widget>
      </item>
+     <item row="3" column="1">
+      <widget class="QLineEdit" name="emailLineEdit"/>
+     </item>
      <item row="4" column="0">
       <widget class="QLabel" name="sexLabel">
        <property name="text">
@@ -63,12 +66,6 @@
      <item row="4" column="1">
       <widget class="QComboBox" name="sexComboBox"/>
      </item>
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="emailLineEdit"/>
-     </item>
-     <item row="5" column="1">
-      <widget class="QComboBox" name="typComboBox"/>
-     </item>
      <item row="5" column="0">
       <widget class="QLabel" name="typLabel">
        <property name="text">
@@ -76,13 +73,23 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
-      <widget class="QComboBox" name="nationalityComboBox"/>
+     <item row="5" column="1">
+      <widget class="QComboBox" name="typComboBox"/>
      </item>
      <item row="6" column="0">
       <widget class="QLabel" name="nationalityLabel">
        <property name="text">
         <string>Nationality</string>
+       </property>
+      </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QComboBox" name="nationalityComboBox"/>
+     </item>
+     <item row="7" column="0">
+      <widget class="QLabel" name="birthdayLabel">
+       <property name="text">
+        <string>Birthday</string>
        </property>
       </widget>
      </item>
@@ -93,20 +100,6 @@
        </property>
       </widget>
      </item>
-     <item row="8" column="1">
-      <widget class="QDateEdit" name="membersinceDateEdit">
-       <property name="displayFormat">
-        <string>yyyy-MM-dd</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="birthdayLabel">
-       <property name="text">
-        <string>Birthday</string>
-       </property>
-      </widget>
-     </item>
      <item row="8" column="0">
       <widget class="QLabel" name="membersiceLabel">
        <property name="text">
@@ -114,17 +107,10 @@
        </property>
       </widget>
      </item>
-     <item row="9" column="1">
-      <widget class="QPushButton" name="planenTrainingButton">
-       <property name="text">
-        <string>Planen Sie ein Training</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="QPushButton" name="trainingsgeschichteButton">
-       <property name="text">
-        <string>Trainingsgeschichte</string>
+     <item row="8" column="1">
+      <widget class="QDateEdit" name="membersinceDateEdit">
+       <property name="displayFormat">
+        <string>yyyy-MM-dd</string>
        </property>
       </widget>
      </item>
