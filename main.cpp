@@ -1,5 +1,6 @@
 #include <QApplication>
-#include <QDesktopWidget>
+// #include <QDesktopWidget>
+#include <QScreen>
 #include <cstdlib>
 #include <iostream>
 
@@ -19,9 +20,16 @@ int main(int argc, char *argv[])
       if (!createConnection(mydbvar)) return EXIT_FAILURE;
     }
 
-    QDesktopWidget dw;
-    int x=dw.width() *0.75;
-    int y=dw.height()*0.75;
+    //QScreen dw;
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect  screenGeometry = screen->geometry();
+    int x = screenGeometry.height() * 0.75;
+    int y = screenGeometry.width() * 0.95;
+
+
+
+    // int x=dw.width() *0.75;
+    // int y=dw.height()*0.75;
 
     MainWindow w;
     w.resize(x,y);
