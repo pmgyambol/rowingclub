@@ -3,8 +3,6 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-//#include <QDesktopWidget>
-#include <QScreen>
 
 #include "mitglied/mitgliedwindow.h"
 #include "mitglied/mitglieddialog.h"

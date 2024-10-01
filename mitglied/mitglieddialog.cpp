@@ -13,9 +13,10 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
     ui->setupUi(this);
     this->setWindowTitle("MitgliedDialog editieren");
 
-    QObject::connect(ui->saveButton, SIGNAL(clicked()), SLOT(save()));
-    QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
-    QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
+    QObject::connect(ui->saveButton,  SIGNAL(clicked()), SLOT(save()));
+    QObject::connect(ui->quitButton,  SIGNAL(clicked()), SLOT(verlassen()));
+    QObject::connect(ui->delButton,   SIGNAL(clicked()), SLOT(loeschen()));
+    QObject::connect(ui->trainButton, SIGNAL(clicked()), SLOT(train()));
 
     QSqlQuery querymembershiptype("select * from membershiptype");
     while(querymembershiptype.next())
@@ -59,6 +60,7 @@ MitgliedDialog::MitgliedDialog(QWidget *parent, int pid) :
     else
     {
         ui->delButton->setDisabled(true);
+        ui->trainButton->setDisabled(true);
     }
 }
 
@@ -75,8 +77,8 @@ void MitgliedDialog::save()
     QString email = ui->emailLineEdit->text();
     if (fname.isEmpty() || adr.isEmpty()) return;
 
-    string birthdate  = ui->birthdayDateEdit->date().toString("yyyy-MM-dd").toStdString();
-    string membrdate  = ui->membersinceDateEdit->date().toString("yyyy-MM-dd").toStdString();
+    string birthdate   = ui->birthdayDateEdit->   date().toString("yyyy-MM-dd").toStdString();
+    string membersince = ui->membersinceDateEdit->date().toString("yyyy-MM-dd").toStdString();
     // Combobox abfragen
     int type_id_typ         = ui->typComboBox->currentIndex();
     int type_id_sex         = ui->sexComboBox->currentIndex();
@@ -88,13 +90,13 @@ void MitgliedDialog::save()
         QSqlQuery insert;
         insert.prepare("insert into mitglied (firstname, lastname, sex, birthdate, nationality, membersince, address, email, typ) values \
                                             (:firstname,:lastname,:sex,:birthdate,:nationality,:membersince,:address,:email,:typ)");
-        // insert.prepare("insert into Personen (PName,PAdr,PTelnr,PPlzFK) values (:name,:adr,:telnr,:fk)");
+
         insert.bindValue(":firstname", fname);
         insert.bindValue(":lastname", lname);
         insert.bindValue(":address", adr);
         insert.bindValue(":email", email);
-        insert.bindValue(":birthdate",      birthdate.c_str());
-        insert.bindValue(":membersicedate", membrdate.c_str());
+        insert.bindValue(":birthdate",     birthdate.c_str());
+        insert.bindValue(":membersince", membersince.c_str());
         insert.bindValue(        ":typ",        typ_types[type_id_typ        ].c_str());
         insert.bindValue(        ":sex",        sex_types[type_id_sex        ].c_str());
         insert.bindValue(":nationality",nationality_types[type_id_nationality].c_str());
@@ -120,8 +122,8 @@ void MitgliedDialog::save()
         update.bindValue(":lastname", lname);
         update.bindValue(":address", adr);
         update.bindValue(":email", email);
-        update.bindValue(":birthdate",      birthdate.c_str());
-        update.bindValue(":membersicedate", membrdate.c_str());
+        update.bindValue(":birthdate",     birthdate.c_str());
+        update.bindValue(":membersince", membersince.c_str());
         update.bindValue(        ":typ",        typ_types[type_id_typ        ].c_str());
         update.bindValue(        ":sex",        sex_types[type_id_sex        ].c_str());
         update.bindValue(":nationality",nationality_types[type_id_nationality].c_str());
@@ -134,7 +136,6 @@ void MitgliedDialog::save()
             msg.addButton("Ok", QMessageBox::YesRole);
             msg.exec();
         }
-        qDebug() << update.lastQuery();
     }
     // Window schließen
     verlassen();
@@ -163,4 +164,17 @@ void MitgliedDialog::loeschen()
 void MitgliedDialog::verlassen()
 {
     this->close();
+}
+
+
+void MitgliedDialog::train()
+{
+    // TrainingDialogen - Window starten
+    TrainingDialog perwindow(this, 0, pid);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
 }

@@ -114,6 +114,13 @@
        </property>
       </widget>
      </item>
+     <item row="9" column="1">
+      <widget class="QPushButton" name="trainButton">
+       <property name="text">
+        <string>Еin neues Training planen</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </item>
    <item>

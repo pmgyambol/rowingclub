@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QSqlQueryModel>
+#include <QPalette>
 
 #include "trainingdialog.h"
 
@@ -19,15 +20,21 @@ public:
     ~TrainingWindow();
 
 public slots:
-    void neuerKontakt();
+    // void neuerKontakt();
     void editKontakt(QModelIndex);
     void plzVerwaltung();
     void suchen();
     void verlassen();
 
+    void nachDatum();
+    void vorDatum();
+
 private:
     Ui::TrainingWindow *ui;
     QSqlQueryModel *sql;
     void sqlquery(bool filter);
+
+    bool nach;
+    bool vor;
 };
 #endif

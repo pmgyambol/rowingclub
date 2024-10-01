@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "training/trainingdialog.h"
+
 namespace Ui {
 class MitgliedDialog;
 }
@@ -25,6 +27,7 @@ public slots:
     void save();
     void loeschen();
     void verlassen();
+    void train();
 
 private:
     Ui::MitgliedDialog *ui;

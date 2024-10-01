@@ -6,10 +6,11 @@
 
 using namespace std;
 
-TrainingDialog::TrainingDialog(QWidget *parent, int pid) :
+TrainingDialog::TrainingDialog(QWidget *parent, int rid, int mid) :
     QDialog(parent),
     ui(new Ui::TrainingDialog),
-    pid(pid)
+    rid(rid),
+    mid(mid)
 {
     ui->setupUi(this);
     this->setWindowTitle("TrainingDialog editieren");
@@ -17,6 +18,10 @@ TrainingDialog::TrainingDialog(QWidget *parent, int pid) :
     QObject::connect(ui->saveButton, SIGNAL(clicked()), SLOT(save()));
     QObject::connect(ui->quitButton, SIGNAL(clicked()), SLOT(verlassen()));
     QObject::connect(ui->delButton,  SIGNAL(clicked()), SLOT(loeschen()));
+
+    QObject::connect(ui->cardioButton, SIGNAL(clicked()), SLOT(cardio()));
+    QObject::connect(ui->gymButton,    SIGNAL(clicked()), SLOT(gym()));
+    QObject::connect(ui->boatButton,   SIGNAL(clicked()), SLOT(boat()));
 
     QSqlQuery queryvisiblegym("select name from gym where visible = 1");
     while(queryvisiblegym.next())
@@ -37,19 +42,19 @@ TrainingDialog::TrainingDialog(QWidget *parent, int pid) :
     }
 
     // TrainingDialogen-Datensatz holen
-    if (pid != 0)
+    if (rid != 0)
     {
-        QSqlQuery queryone("select * from training where id = " + QString::number(pid));
+        QSqlQuery queryone("select * from training where id = " + QString::number(rid));
         if (queryone.next())
         {
-            ui->cardioComboBox->setCurrentIndex(ui->cardioComboBox->findText(queryone.value(1).toString(),Qt::MatchContains));
-            ui->gymComboBox->setCurrentIndex(ui->gymComboBox->findText(queryone.value(2).toString(),Qt::MatchContains));
-            ui->boatComboBox->setCurrentIndex(ui->boatComboBox->findText(queryone.value(3).toString(),Qt::MatchContains));
-            ui->datumDateEdit->setDate(queryone.value(4).toDate());
-            ui->coachTextEdit->setText(queryone.value(5).toString());
+            ui->cardioComboBox->  setCurrentIndex(ui->cardioComboBox->findText(queryone.value(2).toString(),Qt::MatchContains));
+            ui->gymComboBox->     setCurrentIndex(ui->gymComboBox->   findText(queryone.value(3).toString(),Qt::MatchContains));
+            ui->boatComboBox->    setCurrentIndex(ui->boatComboBox->  findText(queryone.value(4).toString(),Qt::MatchContains));
+            ui->coachTextEdit->   setText(queryone.value(5).toString());
             ui->mitgliedTextEdit->setText(queryone.value(6).toString());
-            ui->datumDateEdit->setDate(queryone.value(7).toDate());
+            ui->datumDateEdit->   setDate(queryone.value(7).toDate());
         }
+        // ui->saveButton->setDisabled(true);
     }
     else
         ui->delButton->setDisabled(true);
@@ -62,38 +67,19 @@ TrainingDialog::~TrainingDialog()
 
 void TrainingDialog::save()
 {
-    /*
-    QString name           =  ui->nameLineEdit->text();
-    QString pushups        =  ui->pushupsLineEdit->text();
-    QString plank          =  ui->plankLineEdit->text();
-    QString squat          =  ui->squatLineEdit->text();
-    QString benchPress     =  ui->benchPressLineEdit->text();
-    QString deadlift       =  ui->deadliftLineEdit->text();
-    QString pullUp         =  ui->pullUpLineEdit->text();
-    QString legPress       =  ui->legPressLineEdit->text();
-    QString tricepPushDown =  ui->tricepPushDownLineEdit->text();
-    QString dumbbellRow    =  ui->dumbbellRowLineEdit->text();
-    QString seatedRow      =  ui->seatedRowLineEdit->text();
-    QString visible        =  ui->visibilityLineEdit->text();
-
-    if (pid == 0)
+    if (rid == 0)
     {
-        // Speichern in die Datenbank
         QSqlQuery insert;
-        insert.prepare("insert into training ( name, pushups, plank, squat, benchPress, deadlift, pullUp, legPress, tricepPushDown, dumbbellRow, seatedRow, visible) values \
-                                        (:name,:pushups,:plank,:squat,:benchPress,:deadlift,:pullUp,:legPress,:tricepPushDown,:dumbbellRow,:seatedRow,:visible)");
-        insert.bindValue(":name", name);
-        insert.bindValue(":pushups", pushups);
-        insert.bindValue(":plank", plank);
-        insert.bindValue(":squat", squat);
-        insert.bindValue(":benchPress", benchPress);
-        insert.bindValue(":deadlift", deadlift);
-        insert.bindValue(":pullUp", pullUp);
-        insert.bindValue(":legPress", legPress);
-        insert.bindValue(":tricepPushDown", tricepPushDown);
-        insert.bindValue(":dumbbellRow", dumbbellRow);
-        insert.bindValue(":seatedRow", seatedRow);
-        insert.bindValue(":visible", visible);
+        insert.prepare("insert into training(  fk, cardio, gym, mitboot, coach, mitglied, datum) values \
+                                            (:mid,:cardio,:gym,:mitboot,:coach,:mitglied,:datum)");
+
+        insert.bindValue(":mid",      mid);
+        insert.bindValue(":datum",    ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString().c_str());
+        insert.bindValue(":gym",      ui->   gymComboBox->currentText());
+        insert.bindValue(":cardio",   ui->cardioComboBox->currentText());
+        insert.bindValue(":mitboot",  ui->  boatComboBox->currentText());
+        insert.bindValue(":coach",    ui->coachTextEdit   ->toPlainText().toStdString().c_str());
+        insert.bindValue(":mitglied", ui->mitgliedTextEdit->toPlainText().toStdString().c_str());
 
         if (!insert.exec())
         {
@@ -110,21 +96,17 @@ void TrainingDialog::save()
         // WHERE condition;
         QSqlQuery update;
         update.prepare("update training set \
-                        name=:name, pushups=:pushups, plank=:plank, squat=:squat, benchPress=:benchPress, deadlift=:deadlift, pullUp=:pullUp, \
-                        legPress=:legPress, tricepPushDown=:tricepPushDown, dumbbellRow=:dumbbellRow, seatedRow=:seatedRow, visible=:visible  \
-                        where id = " + QString::number(pid));
-        update.bindValue(":name", name);
-        update.bindValue(":pushups", pushups);
-        update.bindValue(":plank", plank);
-        update.bindValue(":squat", squat);
-        update.bindValue(":benchPress", benchPress);
-        update.bindValue(":deadlift", deadlift);
-        update.bindValue(":pullUp", pullUp);
-        update.bindValue(":legPress", legPress);
-        update.bindValue(":tricepPushDown", tricepPushDown);
-        update.bindValue(":dumbbellRow", dumbbellRow);
-        update.bindValue(":seatedRow", seatedRow);
-        update.bindValue(":visible", visible);
+                        fk=:mid, cardio=:cardio, gym=:gym, mitboot=:mitboot, coach=:coach, mitglied=:mitglied, datum=:datum \
+                        where id = " + QString::number(rid));
+
+        update.bindValue(":mid",      mid);
+        update.bindValue(":datum",    ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString().c_str());
+        update.bindValue(":gym",      ui->   gymComboBox->currentText());
+        update.bindValue(":cardio",   ui->cardioComboBox->currentText());
+        update.bindValue(":mitboot",  ui->  boatComboBox->currentText());
+        update.bindValue(":coach",    ui->coachTextEdit   ->toPlainText().toStdString().c_str());
+        update.bindValue(":mitglied", ui->mitgliedTextEdit->toPlainText().toStdString().c_str());
+
         if (!update.exec())
         {
             QMessageBox msg;
@@ -133,18 +115,17 @@ void TrainingDialog::save()
             msg.addButton("Ok", QMessageBox::YesRole);
             msg.exec();
         }
-        qDebug() << update.lastQuery();
     }
 
+    // qDebug() << "mid=" << mid << "\n";
     // Window schließen
     verlassen();
-*/
 }
 
 void TrainingDialog::loeschen()
 {
     // Löschen macht nur Sinn, bei einem vorhandenen Datensatz
-    if (pid != 0) {
+    if (rid != 0) {
         QMessageBox msg;
         msg.setText("Willst du wirklich löschen?");
         msg.setWindowTitle("TrainingDialog löschen");
@@ -157,7 +138,7 @@ void TrainingDialog::loeschen()
         if (msg.exec() == QMessageBox::Yes)
         {
             // Datensatz löschen
-            QSqlQuery delPerson("delete from training where id = " + QString::number(pid));
+            QSqlQuery delPerson("delete from training where id = " + QString::number(rid));
             verlassen();
         }
     }
@@ -166,4 +147,72 @@ void TrainingDialog::loeschen()
 void TrainingDialog::verlassen()
 {
     this->close();
+}
+
+
+void TrainingDialog::cardio()
+{
+    QString exe = "select id from cardio where name = '" + ui->cardioComboBox->currentText() + "'";
+
+    QSqlQuery q(exe);
+    q.next();
+    int id = q.value(0).toInt();
+
+    // GymDialogen - Window starten
+    CardioDialog perwindow(this, id);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
+
+    // hier wurde das Window wieder geschlossen
+    // Update der GymDialogenliste
+    //sqlquery(false);
+}
+
+void TrainingDialog::gym()
+{
+    QString exe = "select id from gym where name = '" + ui->gymComboBox->currentText() + "'";
+
+    QSqlQuery q(exe);
+    q.next();
+    int id = q.value(0).toInt();
+
+    // GymDialogen - Window starten
+    GymDialog perwindow(this, id);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
+
+    // hier wurde das Window wieder geschlossen
+    // Update der GymDialogenliste
+    //sqlquery(false);
+}
+
+
+void TrainingDialog::boat()
+{
+    QString exe = "select id from mitboot where name = '" + ui->boatComboBox->currentText() + "'";
+
+    QSqlQuery q(exe);
+    q.next();
+    int id = q.value(0).toInt();
+
+    // GymDialogen - Window starten
+    MitbootDialog perwindow(this, id);
+    // Modales Window:
+    // Es ist das oberste Window
+    // alle anderen Windows sind nicht bedienbar
+    perwindow.setModal(true);
+    perwindow.show();
+    perwindow.exec();
+
+    // hier wurde das Window wieder geschlossen
+    // Update der GymDialogenliste
+    //sqlquery(false);
 }

@@ -131,7 +131,11 @@ CREATE TABLE if not exists 'einkommen' (
   foderationssubvention  DOUBLE,
   werbung                DOUBLE, 
   freiearbeit            DOUBLE,
+  mitgliedid             INTEGER,
+  boatid                 INTEGER,
   datum                  DATE NOT NULL DEFAULT (DATE('now')),
+  FOREIGN KEY('mitgliedId') REFERENCES mitglied('id'),  
+  FOREIGN KEY('boatId')     REFERENCES boat('id'),  
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
@@ -242,9 +246,9 @@ values
 
 insert into training (fk, gym, cardio, mitboot, coach, mitglied, datum)
 values
-(1,'stoyan delchev','steroid1', 'no work',  'some text',        'strong man lifting',   '2024-09-01'),
-(2,'basic exercise','superman', 'crazyrow', 'something',        'running all day long', '2024-05-12'),
-(3,'stoyan delchev','no work',  'momcall',  'do what you like', 'strong man lifting',   '2024-06-22');
+(1,'stoyan delchev', 'steroid1', 'no work',  'some text',        'strong man lifting',   '2024-09-01'),
+(2,'basic exercise', 'superman', 'crazyrow', 'something',        'running all day long', '2024-05-12'),
+(3,'stoyan delchev', 'no work',  'momcall',  'do what you like', 'strong man lifting',   '2024-06-22');
 
 insert into einkommen (mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit)
 values

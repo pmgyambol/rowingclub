@@ -33,7 +33,9 @@ EinkommenDialog::EinkommenDialog(QWidget *parent, int pid) :
             ui->foderationssubventionLineEdit->setText(queryone.value(5).toString());
             ui->werbungLineEdit->setText(queryone.value(6).toString());
             ui->freiearbeitLineEdit->setText(queryone.value(7).toString());
-            ui->datumDateEdit->setDate(queryone.value(8).toDate());
+            ui->mitgliedLineEdit->setText(queryone.value(8).toString());
+            ui->boatLineEdit->setText(queryone.value(9).toString());
+            ui->datumDateEdit->setDate(queryone.value(10).toDate());
         }
     }
     else
@@ -54,16 +56,18 @@ void EinkommenDialog::save()
     QString foderationssubvention =  ui->foderationssubventionLineEdit->text();
     QString werbung               =  ui->werbungLineEdit->text();
     QString freiearbeit           =  ui->freiearbeitLineEdit->text();
+    QString mitgliedid            =  ui->mitgliedLineEdit->text();
+    QString boatid                =  ui->boatLineEdit->text();
 
-    string  datum                  = ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString();
+    string  datum                 = ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString();
 
     if (pid == 0)
     {
         // Speichern in die Datenbank
         QSqlQuery insert;
         insert.prepare("insert into einkommen \
-                        ( mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit, datum) values \
-                        (:mitgliedsbeitrag,:bootsverleih,:gastebeitrag,:bootshausmieten,:foderationssubvention,:werbung,:freiearbeit,:datum)");
+                        ( mitgliedsbeitrag, bootsverleih, gastebeitrag, bootshausmieten, foderationssubvention, werbung, freiearbeit, mitgliedid, boatid, datum) values \
+                        (:mitgliedsbeitrag,:bootsverleih,:gastebeitrag,:bootshausmieten,:foderationssubvention,:werbung,:freiearbeit,:mitgliedid,:boatid,:datum)");
         insert.bindValue(":mitgliedsbeitrag", mitgliedsbeitrag);
         insert.bindValue(":bootsverleih", bootsverleih);
         insert.bindValue(":gastebeitrag", gastebeitrag);
@@ -71,6 +75,8 @@ void EinkommenDialog::save()
         insert.bindValue(":foderationssubvention", foderationssubvention);
         insert.bindValue(":werbung", werbung);
         insert.bindValue(":freiearbeit", freiearbeit);
+        insert.bindValue(":mitgliedid", mitgliedid);
+        insert.bindValue(":boatid", boatid);
         insert.bindValue(":datum", datum.c_str());
 
         if (!insert.exec())
@@ -90,8 +96,9 @@ void EinkommenDialog::save()
         update.prepare("update einkommen set \
                         mitgliedsbeitrag=:mitgliedsbeitrag, bootsverleih=:bootsverleih, gastebeitrag=:gastebeitrag, \
                         bootshausmieten=:bootshausmieten, foderationssubvention=:foderationssubvention, \
-                        werbung=:werbung, freiearbeit=:freiearbeit, datum=:datum \
+                        werbung=:werbung, freiearbeit=:freiearbeit, mitgliedid=:mitgliedid, boatid=:boatid, datum=:datum \
                         where id = " + QString::number(pid));
+
         update.bindValue(":mitgliedsbeitrag", mitgliedsbeitrag);
         update.bindValue(":bootsverleih", bootsverleih);
         update.bindValue(":gastebeitrag", gastebeitrag);
@@ -99,6 +106,8 @@ void EinkommenDialog::save()
         update.bindValue(":foderationssubvention", foderationssubvention);
         update.bindValue(":werbung", werbung);
         update.bindValue(":freiearbeit", freiearbeit);
+        update.bindValue(":mitgliedid", mitgliedid);
+        update.bindValue(":boatid", boatid);
         update.bindValue(":datum", datum.c_str());
 
         if (!update.exec())
@@ -109,7 +118,6 @@ void EinkommenDialog::save()
             msg.addButton("Ok", QMessageBox::YesRole);
             msg.exec();
         }
-        qDebug() << update.lastQuery();
     }
 
     // Window schließen
