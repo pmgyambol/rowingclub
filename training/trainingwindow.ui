@@ -66,11 +66,6 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionNeuer_Kontakt">
-   <property name="text">
-    <string>Neuer Kontakt</string>
-   </property>
-  </action>
   <action name="actionVerlassen">
    <property name="text">
     <string>Verlassen</string>

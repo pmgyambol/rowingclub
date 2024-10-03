@@ -61,6 +61,12 @@ void EinkommenDialog::save()
 
     string  datum                 = ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString();
 
+    if ( mitgliedsbeitrag.toInt() < 0  || bootsverleih.toInt() < 0 || gastebeitrag.toInt() < 0 || bootshausmieten.toInt() < 0 || 
+         foderationssubvention.toInt() < 0 || werbung.toInt() < 0 || freiearbeit.toInt() < 0 || mitgliedid.toInt() < 0 || boatid.toInt() < 0 )
+    {
+        return;
+    }
+
     if (pid == 0)
     {
         // Speichern in die Datenbank

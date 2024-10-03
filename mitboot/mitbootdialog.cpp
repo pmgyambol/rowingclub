@@ -24,8 +24,14 @@ MitbootDialog::MitbootDialog(QWidget *parent, int pid) :
         QSqlQuery queryone("select * from mitboot where id = " + QString::number(pid));
         if (queryone.next())
         {
-            ui->nameLineEdit->setText(queryone.value(1).toString());
-            ui->instructionEdit->setText(queryone.value(2).toString());
+            if ( queryone.value(1).toString() == "no work" )
+            {
+                ui->saveButton->setDisabled(true);
+                ui->delButton->setDisabled(true);
+            }
+
+            ui->nameLineEdit->      setText(queryone.value(1).toString());
+            ui->instructionEdit->   setText(queryone.value(2).toString());
             ui->visibilityLineEdit->setText(queryone.value(3).toString());
         }
     }

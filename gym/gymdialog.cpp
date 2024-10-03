@@ -24,18 +24,24 @@ GymDialog::GymDialog(QWidget *parent, int pid) :
         QSqlQuery queryone("select * from gym where id = " + QString::number(pid));
         if (queryone.next())
         {
-            ui->nameLineEdit->setText(queryone.value(1).toString());
-            ui->pushupsLineEdit->setText(queryone.value(2).toString());
-            ui->plankLineEdit->setText(queryone.value(3).toString());
-            ui->squatLineEdit->setText(queryone.value(4).toString());
-            ui->benchPressLineEdit->setText(queryone.value(5).toString());
-            ui->deadliftLineEdit->setText(queryone.value(6).toString());
-            ui->pullUpLineEdit->setText(queryone.value(7).toString());
-            ui->legPressLineEdit->setText(queryone.value(8).toString());
-            ui->tricepPushDownLineEdit->setText(queryone.value(9).toString());
-            ui->dumbbellRowLineEdit->setText(queryone.value(10).toString());
-            ui->seatedRowLineEdit->setText(queryone.value(11).toString());
-            ui->visibilityLineEdit->setText(queryone.value(12).toString());
+            if ( queryone.value(1).toString() == "no work" )
+            {
+                ui->saveButton->setDisabled(true);
+                ui->delButton->setDisabled(true);
+            }
+
+            ui->nameLineEdit->          setText(queryone.value( 1).toString());
+            ui->pushupsLineEdit->       setText(queryone.value( 2).toString());
+            ui->plankLineEdit->         setText(queryone.value( 3).toString());
+            ui->squatLineEdit->         setText(queryone.value( 4).toString());
+            ui->benchPressLineEdit->    setText(queryone.value( 5).toString());
+            ui->deadliftLineEdit->      setText(queryone.value( 6).toString());
+            ui->pullUpLineEdit->        setText(queryone.value( 7).toString());
+            ui->legPressLineEdit->      setText(queryone.value( 8).toString());
+            ui->tricepPushDownLineEdit->setText(queryone.value( 9).toString());
+            ui->dumbbellRowLineEdit->   setText(queryone.value(10).toString());
+            ui->seatedRowLineEdit->     setText(queryone.value(11).toString());
+            ui->visibilityLineEdit->    setText(queryone.value(12).toString());
         }
     }
     else
@@ -61,6 +67,12 @@ void GymDialog::save()
     QString dumbbellRow    =  ui->dumbbellRowLineEdit->text();
     QString seatedRow      =  ui->seatedRowLineEdit->text();
     QString visible        =  ui->visibilityLineEdit->text();
+
+    if ( name == "" || pushups.toInt() < 0  || plank.toInt() < 0 || squat.toInt() < 0 || benchPress.toInt() < 0 || pullUp.toInt() < 0 || 
+         legPress.toInt() < 0 || tricepPushDown.toInt() < 0 || dumbbellRow.toInt() < 0 || seatedRow.toInt() < 0 )
+    {
+        return;
+    }
 
     if (pid == 0)
     {

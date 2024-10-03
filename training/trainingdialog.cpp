@@ -23,6 +23,8 @@ TrainingDialog::TrainingDialog(QWidget *parent, int rid, int mid) :
     QObject::connect(ui->gymButton,    SIGNAL(clicked()), SLOT(gym()));
     QObject::connect(ui->boatButton,   SIGNAL(clicked()), SLOT(boat()));
 
+    ui->datumDateEdit->setDate(QDate::currentDate());
+
     QSqlQuery queryvisiblegym("select name from gym where visible = 1");
     while(queryvisiblegym.next())
     {

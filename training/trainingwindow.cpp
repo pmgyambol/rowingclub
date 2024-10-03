@@ -21,8 +21,11 @@ TrainingWindow::TrainingWindow(QWidget *parent)
     ui->dbView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->dbView->setSizeAdjustPolicy(QAbstractScrollArea::AdjustToContents);
 
-    nach = false; nachDatum();
+    nach =  true; nachDatum();
     vor  = false;  vorDatum();
+
+    ui->nachDateEdit->setDate(QDate::currentDate());
+    ui-> vorDateEdit->setDate(QDate::currentDate());
 
     sql = new QSqlQueryModel();
     // DB-Anzeigen
@@ -89,26 +92,26 @@ void TrainingWindow::sqlquery(bool filter)
         QString where = nullptr;
         QString name  = ui->searchTextEdit->text();
         if (!name.isEmpty())
-            where = " where firstname like '" + name + "%' or  lastname like '" + name + "%'";
+            where = " where (firstname like '%" + name + "%' or  lastname like '%" + name + "%')";
         if ( !nach )
         {
             if ( where == nullptr )
-                where  = " where datum <= '" + ui->nachDateEdit->date().toString("yyyy-MM-dd") + "'";
+                where  =          " where '" + ui->nachDateEdit->date().toString("yyyy-MM-dd") + "' <= datum";
             else
-                where +=    " or datum <= '" + ui->nachDateEdit->date().toString("yyyy-MM-dd") + "'";
+                where +=            " and '" + ui->nachDateEdit->date().toString("yyyy-MM-dd") + "' <= datum";
         }
         if ( !vor )
         {
             if ( where == nullptr )
-                where  = " where datum => '" + ui-> vorDateEdit->date().toString("yyyy-MM-dd") + "'";
+                where  = " where datum <= '" + ui-> vorDateEdit->date().toString("yyyy-MM-dd") + "'";
             else
-                where +=    " or datum => '" + ui-> vorDateEdit->date().toString("yyyy-MM-dd") + "'";
+                where +=   " and datum <= '" + ui-> vorDateEdit->date().toString("yyyy-MM-dd") + "'";
         }
         if ( where != nullptr )
             query += where;
     }
 
-    qDebug() << query << "\n";
+    // qDebug() << query << "\n";
 
     sql->setQuery(query);
     sql->setHeaderData( 0, Qt::Horizontal, "id");

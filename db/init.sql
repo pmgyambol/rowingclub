@@ -68,6 +68,9 @@ CREATE TABLE if not exists 'mitboot' (
   PRIMARY KEY('id' AUTOINCREMENT)
 );
 
+/* https://stackoverflow.com/questions/46749844/why-are-my-strings-accepted-into-int-values-in-sql-db */
+/* Why are my strings accepted into int values in sqlite3 db? */
+
 CREATE TABLE if not exists 'gym' (
   'id'             	       INTEGER,
   'name'                   TEXT UNIQUE NOT NULL,

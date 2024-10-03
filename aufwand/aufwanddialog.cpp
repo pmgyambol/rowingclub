@@ -59,6 +59,12 @@ void AufwandDialog::save()
 
     string  datum             = ui->datumDateEdit->date().toString("yyyy-MM-dd").toStdString();
 
+    if ( fixedcost.toInt() < 0  || salaries.toInt() < 0 || rent.toInt() < 0 || electricity.toInt() < 0 || 
+         water.toInt() < 0 || heating.toInt() < 0 || amortization.toInt() < 0 || gekauftesMaterial.toInt() < 0 )
+    {
+        return;
+    }
+
     if (pid == 0)
     {
         // Speichern in die Datenbank

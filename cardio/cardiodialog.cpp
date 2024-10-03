@@ -24,16 +24,23 @@ CardioDialog::CardioDialog(QWidget *parent, int pid) :
         QSqlQuery queryone("select * from cardio where id = " + QString::number(pid));
         if (queryone.next())
         {
-            ui->nameLineEdit->setText(queryone.value(1).toString());
-            ui->paddelErgometerCanuLineEdit->setText(queryone.value(2).toString());
+            if ( queryone.value(1).toString() == "no work" )
+            {
+                ui->saveButton->setDisabled(true);
+                ui->delButton->setDisabled(true);
+            }
+
+            ui->nameLineEdit->                setText(queryone.value(1).toString());
+            ui->paddelErgometerCanuLineEdit-> setText(queryone.value(2).toString());
             ui->paddelErgometerKayakLineEdit->setText(queryone.value(3).toString());
-            ui->runningLineEdit->setText(queryone.value(4).toString());
-            ui->byciclingLineEdit->setText(queryone.value(5).toString());
-            ui->visibilityLineEdit->setText(queryone.value(6).toString());
+            ui->runningLineEdit->             setText(queryone.value(4).toString());
+            ui->byciclingLineEdit->           setText(queryone.value(5).toString());
+            ui->visibilityLineEdit->          setText(queryone.value(6).toString());
         }
     }
     else
         ui->delButton->setDisabled(true);
+    
 }
 
 CardioDialog::~CardioDialog()
@@ -50,13 +57,15 @@ void CardioDialog::save()
     QString bycicling            = ui->byciclingLineEdit->text();
     QString visible              =  ui->visibilityLineEdit->text();
 
+    if ( name == "" || paddelErgometerCanu.toInt() < 0  || paddelErgometerKayak.toInt() < 0 || running.toInt() < 0 || bycicling.toInt() < 0 ) return;
+
     if (pid == 0)
     {
         // Speichern in die Datenbank
         QSqlQuery insert;
         insert.prepare("insert into cardio ( name, paddelErgometerCanu, paddelErgometerKayak, running, bycicling, visible) values \
                                           (:name,:paddelErgometerCanu,:paddelErgometerKayak,:running,:bycicling,:visible)");
-        insert.bindValue(":name", name);
+        insert.bindValue(":name",                 name);
         insert.bindValue(":paddelErgometerCanu",  paddelErgometerCanu);
         insert.bindValue(":paddelErgometerKayak", paddelErgometerKayak);
         insert.bindValue(":running",              running);
